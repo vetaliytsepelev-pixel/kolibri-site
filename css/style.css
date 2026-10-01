@@ -90,9 +90,10 @@ p { margin: 0 0 1em; }
 .header__logo img { height: 56px; width: auto; }
 .header__place { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 15px; }
 .header__place svg { width: 18px; height: 18px; color: var(--p600); flex: none; }
-.header__phone { margin-left: auto; font-family: var(--font-head); font-weight: 700; font-size: 19px; color: var(--p900); }
+/* телефон крупно, по ширине подписи под ним; блок из двух строк по высоте и центру совпадает с кнопкой «Записаться» */
+.header__phone { margin-left: auto; font-family: var(--font-head); font-weight: 700; font-size: 25.7px; line-height: 1.05; color: var(--p900); white-space: nowrap; }
 .header__phone:hover { color: var(--p600); }
-.header__phone small { display: block; font-family: var(--font-body); font-weight: 400; font-size: 12px; color: var(--muted); }
+.header__phone small { display: block; margin-top: 3px; font-family: var(--font-body); font-weight: 400; font-size: 12px; line-height: 1.25; color: var(--muted); }
 .header__burger { display: none; width: 44px; height: 44px; border: 0; background: var(--l100); border-radius: 12px; cursor: pointer; color: var(--p700); }
 .header__burger svg { width: 24px; height: 24px; }
 .nav { border-top: 1px solid var(--l200); }
