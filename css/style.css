@@ -402,6 +402,17 @@ p { margin: 0 0 1em; }
 }
 .form input:focus, .form textarea:focus, .form select:focus { outline: 0; border-color: var(--p500); background: #fff; }
 .form small { color: var(--muted); font-size: 12px; }
+.form__hint { margin-top: -6px; }
+/* галочка согласия на обработку персональных данных */
+.form label.form__check { display: flex; gap: 10px; align-items: flex-start; font-weight: 400; font-size: 13px; color: var(--ink); line-height: 1.45; cursor: pointer; }
+.form__check input { width: 20px; height: 20px; flex: none; margin: 1px 0 0; padding: 0; accent-color: var(--p600); cursor: pointer; }
+.form__check a { color: var(--p600); text-decoration: underline; }
+/* ловушка для спам-ботов — не видна людям */
+.form label.form__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.form__err { background: #fff4f6; border-left: 4px solid #d9486a; border-radius: 10px; padding: 10px 14px; font-size: 14px; color: #9c1f3d; }
+.form__err a { color: #9c1f3d; }
+.form button[disabled] { opacity: .7; cursor: wait; }
+[hidden] { display: none !important; }
 .form__ok { text-align: center; padding: 24px 0; }
 .form__ok svg { width: 64px; height: 64px; color: var(--ok); margin: 0 auto 12px; }
 
@@ -524,5 +535,17 @@ p { margin: 0 0 1em; }
 .hours div span:last-child { font-weight: 700; color: var(--p800); }
 
 .note { background: var(--l100); border-left: 4px solid var(--p500); border-radius: 12px; padding: 14px 18px; font-size: 15px; color: var(--p900); }
+
+/* страницы документов: согласие, политика конфиденциальности */
+.doc-page { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); padding: 40px 48px; max-width: 880px; }
+.doc-page h1 { font-size: clamp(26px, 3vw, 34px); margin-bottom: 8px; }
+.doc-page h2 { font-size: 20px; margin: 28px 0 10px; }
+.doc-page p, .doc-page li { font-size: 16px; line-height: 1.6; }
+.doc-page ul, .doc-page ol { padding-left: 22px; }
+.doc-page li { margin-bottom: 6px; }
+.doc-page__meta { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
+/* поля, которые клиника должна заполнить своими реквизитами (подсвечены, пока не заполнены) */
+.fill { background: #fff3b0; border-radius: 4px; padding: 0 4px; }
+@media (max-width: 640px) { .doc-page { padding: 24px 18px; } }
 
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }

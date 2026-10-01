@@ -11,8 +11,8 @@
   var I = {
     pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>',
     phone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2z"/></svg>',
-    chat: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-3.3-2.9c-.2-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.7-1.7c-.2-.5-.4-.4-.5-.4h-.5a1 1 0 0 0-.7.3 2.9 2.9 0 0 0-.9 2.2 5 5 0 0 0 1.1 2.7 11.5 11.5 0 0 0 4.4 3.9c1.6.7 2.3.8 3.1.6.5-.1 1.4-.6 1.6-1.2.2-.6.2-1.1.1-1.2l-.5-.3z"/></svg>',
-    tg: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.6 18.7 19.7c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13.3l-4.8-1.5c-1-.3-1.1-1 .2-1.5L20.4 3c.9-.3 1.6.2 1.5 1.6z"/></svg>',
+    /* значок «написать в MAX»: облачко сообщения (не логотип MAX) */
+    max: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.3 8.7 8.7 0 0 1-3.8-.9L3 20.5l1.6-4.9a8.1 8.1 0 0 1-1.1-4.1A8.4 8.4 0 0 1 12 3.2a8.4 8.4 0 0 1 9 8.3z"/><path d="M8 13.5v-4l2.5 3 2.5-3v4M15.5 9.5l2.5 4M18 9.5l-2.5 4"/></svg>',
     vk: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.2 18.5c-6.8 0-10.7-4.7-10.9-12.4h3.4c.1 5.7 2.6 8.1 4.6 8.6V6.1h3.2v4.9c2-.2 4.1-2.4 4.8-4.9h3.2a9.4 9.4 0 0 1-4.3 6.1 9.8 9.8 0 0 1 5 6.3h-3.5a6.1 6.1 0 0 0-4.9-4.5v4.5h-.6z"/></svg>',
     clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
     mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 7 9 6 9-6"/></svg>',
@@ -74,30 +74,58 @@
       '<div class="footer__grid">' +
       '<div><a class="footer__logo" href="index.html"><img src="img/logo-full.png" alt="' + esc(C.name) + '"></a>' +
       '<p>Детская клиника в Симферопольском районе: педиатрия и неонатология, сопровождение недоношенных детей, УЗИ экспертного класса пациентам от 0 до 99 лет, вакцинация с рождения.</p>' +
-      '<div class="footer__social"><a href="' + C.whatsapp + '" target="_blank" rel="noopener" aria-label="WhatsApp">' + I.chat + '</a><a href="' + C.telegram + '" target="_blank" rel="noopener" aria-label="Telegram">' + I.tg + '</a><a href="#" aria-label="ВКонтакте">' + I.vk + '</a></div></div>' +
+      social() + '</div>' +
       '<div><h4>Пациентам</h4><ul><li><a href="vrachi.html">Врачи</a></li><li><a href="uslugi.html">Услуги</a></li><li><a href="uzi.html">УЗИ-диагностика</a></li><li><a href="ceny.html">Программы и цены</a></li><li><a href="poleznoe.html">Полезное</a></li></ul></div>' +
       '<div><h4>Клиника</h4><ul><li><a href="o-klinike.html">О клинике</a></li><li><a href="index.html#reviews">Отзывы</a></li><li><a href="o-klinike.html#docs">Документы и лицензии</a></li><li><a href="kontakty.html">Контакты</a></li></ul></div>' +
       '<div><h4>Контакты</h4><p>' + esc(C.addressFull) + '</p><p><a href="' + C.phoneHref + '"><b>' + esc(C.phone) + '</b></a><br><a href="mailto:' + C.email + '">' + C.email + '</a></p><div class="hours">' + hours + '</div></div>' +
       '</div>' +
       '<div class="footer__warn">ИМЕЮТСЯ ПРОТИВОПОКАЗАНИЯ. НЕОБХОДИМА КОНСУЛЬТАЦИЯ СПЕЦИАЛИСТА</div>' +
-      '<div class="footer__bottom"><span>© 2026 ' + esc(C.name) + '. Информация на сайте не является публичной офертой.</span><span><a href="app-concept.html" style="margin-right:16px">Концепция мобильного приложения</a>' + esc(C.site) + '</span></div>' +
+      '<div class="footer__bottom"><span>© 2026 ' + esc(C.name) + '. Информация на сайте не является публичной офертой.</span><span><a href="politika.html" style="margin-right:16px">Политика конфиденциальности</a><a href="app-concept.html" style="margin-right:16px">Концепция мобильного приложения</a>' + esc(C.site) + '</span></div>' +
       '</div></footer>' +
-      '<div class="float"><a class="float__chat" href="' + C.whatsapp + '" target="_blank" rel="noopener" aria-label="Написать в WhatsApp">' + I.chat + '</a><a class="float__phone" href="' + C.phoneHref + '" aria-label="Позвонить">' + I.phone + '</a></div>';
+      '<div class="float">' + (C.max ? '<a class="float__chat" href="' + esc(C.max) + '" target="_blank" rel="noopener" aria-label="Написать в MAX" title="Написать в MAX">' + I.max + '</a>' : '') + '<a class="float__phone" href="' + C.phoneHref + '" aria-label="Позвонить">' + I.phone + '</a></div>';
+  }
+
+  /* значки мессенджеров и соцсетей в подвале: только те, для которых в data.js есть ссылка */
+  function social() {
+    var links = [];
+    if (C.max) links.push('<a href="' + esc(C.max) + '" target="_blank" rel="noopener" aria-label="Написать в MAX" title="Написать в MAX">' + I.max + '</a>');
+    if (C.vk) links.push('<a href="' + esc(C.vk) + '" target="_blank" rel="noopener" aria-label="ВКонтакте" title="ВКонтакте">' + I.vk + '</a>');
+    return links.length ? '<div class="footer__social">' + links.join('') + '</div>' : '';
+  }
+
+  /* Кнопки и строки «Написать в MAX» в страницах (атрибут data-max): пока ссылки нет — прячем.
+     Если у кнопки есть data-book, без ссылки на MAX она остаётся кнопкой «Оставить заявку». */
+  function initMax() {
+    document.querySelectorAll('[data-max]').forEach(function (el) {
+      if (C.max) {
+        if (el.tagName === 'A') { el.href = C.max; el.target = '_blank'; el.rel = 'noopener'; el.removeAttribute('data-book'); if (el.dataset.max) el.textContent = el.dataset.max; }
+        el.querySelectorAll('a[data-max-link]').forEach(function (a) { a.href = C.max; });
+        el.hidden = false;
+      } else if (!el.hasAttribute('data-book')) {
+        el.hidden = true;
+      }
+    });
   }
 
   /* ---------- Модальные окна ---------- */
+  var COMMENT_HINT = 'Возраст ребёнка, удобное время для звонка';
   function renderModals() {
     var opts = window.DOCTORS.map(function (d) { return '<option value="' + d.id + '">' + esc(d.name) + ' — ' + esc(d.spec[0]) + '</option>'; }).join('');
     return '<div class="modal" id="modal-book"><div class="modal__box">' +
       '<button class="modal__close" type="button" data-close aria-label="Закрыть">' + I.close + '</button>' +
       '<h2 style="font-size:26px">Записаться на приём</h2><p class="muted" style="font-size:15px">Оставьте контакты — администратор перезвонит, подберёт врача и удобное время.</p>' +
-      '<form class="form" id="form-book">' +
-      '<label>Ваше имя<input name="name" required placeholder="Как к вам обращаться"></label>' +
-      '<label>Телефон<input name="phone" type="tel" required placeholder="+7 (___) ___-__-__"></label>' +
+      '<form class="form" id="form-book" novalidate>' +
+      '<input type="hidden" name="type" value="zapis"><input type="hidden" name="started" value="">' +
+      /* ловушка для спам-ботов: человек это поле не видит и не заполняет */
+      '<label class="form__hp" aria-hidden="true">Сайт<input name="website" tabindex="-1" autocomplete="off"></label>' +
+      '<label>Ваше имя<input name="name" required maxlength="80" autocomplete="name" placeholder="Как к вам обращаться"></label>' +
+      '<label>Телефон<input name="phone" type="tel" required maxlength="30" autocomplete="tel" placeholder="+7 (___) ___-__-__"></label>' +
       '<label>Врач или услуга<select name="doctor"><option value="">Подобрать врача</option>' + opts + '</select></label>' +
-      '<label>Комментарий<textarea name="comment" rows="3" placeholder="Возраст ребёнка, что беспокоит, удобное время"></textarea></label>' +
+      '<label>Комментарий<textarea name="comment" rows="3" maxlength="1000" placeholder="' + COMMENT_HINT + '"></textarea></label>' +
+      '<small class="form__hint">Пожалуйста, не указывайте сведения о здоровье ребёнка — врач уточнит всё на приёме.</small>' +
+      '<label class="form__check"><input type="checkbox" name="consent" value="1" required><span>Я даю <a href="soglasie.html" target="_blank">согласие на обработку персональных данных</a> и ознакомлен(а) с <a href="politika.html" target="_blank">политикой конфиденциальности</a></span></label>' +
+      '<div class="form__err" hidden></div>' +
       '<button class="btn btn--primary btn--block" type="submit">Отправить заявку</button>' +
-      '<small>Нажимая кнопку, вы соглашаетесь с <a href="#">политикой обработки персональных данных</a>.</small>' +
       '</form></div></div>' +
       '<div class="modal" id="modal-doctor"><div class="modal__box modal__box--wide"><button class="modal__close" type="button" data-close aria-label="Закрыть">' + I.close + '</button><div id="doctor-body"></div></div></div>';
   }
@@ -105,10 +133,13 @@
   function openModal(id) { document.getElementById(id).classList.add('is-open'); document.body.style.overflow = 'hidden'; }
   function closeModals() { document.querySelectorAll('.modal.is-open').forEach(function (m) { m.classList.remove('is-open'); }); document.body.style.overflow = ''; }
 
-  function openBooking(doctorId) {
+  function openBooking(doctorId, type) {
     var f = document.getElementById('form-book');
     f.style.display = '';
     var ok = f.parentNode.querySelector('.form__ok'); if (ok) ok.remove();
+    f.querySelector('.form__err').hidden = true;
+    f.elements['type'].value = type || 'zapis';
+    f.elements['started'].value = String(Date.now());
     if (doctorId) f.doctor.value = doctorId;
     openModal('modal-book');
   }
@@ -336,24 +367,50 @@
       if (!t) return;
       if (t.hasAttribute('data-book')) { e.preventDefault(); openBooking(t.getAttribute('data-book')); }
       else if (t.hasAttribute('data-doctor')) { e.preventDefault(); openDoctor(t.getAttribute('data-doctor')); }
-      else if (t.hasAttribute('data-review')) { e.preventDefault(); openBooking(); document.querySelector('#modal-book h2').textContent = 'Оставить отзыв'; document.querySelector('#form-book textarea').placeholder = 'Ваш отзыв'; }
+      else if (t.hasAttribute('data-review')) { e.preventDefault(); openBooking(null, 'otzyv'); document.querySelector('#modal-book h2').textContent = 'Оставить отзыв'; document.querySelector('#form-book textarea').placeholder = 'Ваш отзыв'; }
       else if (t.hasAttribute('data-close') || t.classList.contains('modal')) { if (t.classList.contains('modal') && e.target !== t) return; closeModals(); }
     });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModals(); });
+    initMax();
 
-    /* форма (демо: без отправки на сервер) */
+    /* Форма записи. Заявка уходит на C.formEndpoint (обработчик form/send.php на хостинге: письмо на почту клиники
+       и уведомление администратору в MAX). Если адрес пустой — демо: только «Спасибо», без отправки. */
     var form = document.getElementById('form-book');
+    var err = form.querySelector('.form__err');
+    function showErr(html) { err.innerHTML = html; err.hidden = false; }
+    function done() {
+      form.style.display = 'none';
+      form.insertAdjacentHTML('afterend', '<div class="form__ok">' + I.check + '<h3>Спасибо!</h3><p class="muted">' +
+        (form.elements['type'].value === 'otzyv' ? 'Мы получили ваш отзыв.' : 'Мы получили заявку и перезвоним вам в ближайшее время.') +
+        '<br>Срочный вопрос? Звоните: <a href="' + C.phoneHref + '"><b>' + esc(C.phone) + '</b></a></p></div>');
+      form.reset();
+    }
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      form.style.display = 'none';
-      form.insertAdjacentHTML('afterend', '<div class="form__ok">' + I.check + '<h3>Спасибо!</h3><p class="muted">Мы получили заявку и перезвоним вам в ближайшее время.<br>Срочный вопрос? Звоните: <a href="' + C.phoneHref + '"><b>' + esc(C.phone) + '</b></a></p></div>');
-      form.reset();
+      err.hidden = true;
+      var el = form.elements;
+      if (!el['name'].value.trim()) { showErr('Напишите, пожалуйста, как к вам обращаться.'); el['name'].focus(); return; }
+      if (el['phone'].value.replace(/\D/g, '').length < 10) { showErr('Проверьте номер телефона — нужно не меньше 10 цифр.'); el['phone'].focus(); return; }
+      if (!el['consent'].checked) { showErr('Чтобы отправить заявку, отметьте согласие на обработку персональных данных.'); el['consent'].focus(); return; }
+      if (!C.formEndpoint) { done(); return; }
+      var btn = form.querySelector('button[type=submit]'), label = btn.textContent;
+      btn.disabled = true; btn.textContent = 'Отправляем…';
+      var data = new FormData(form), sel = el['doctor'];
+      data.append('page', location.pathname);
+      data.append('doctor_name', sel.value ? sel.options[sel.selectedIndex].text : '');
+      fetch(C.formEndpoint, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } })
+        .then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
+        .then(function (res) {
+          if (res && res.ok) done();
+          else showErr((res && res.error ? esc(res.error) + '<br>' : 'Не получилось отправить заявку. ') + 'Позвоните нам: <a href="' + C.phoneHref + '"><b>' + esc(C.phone) + '</b></a>');
+        })
+        .catch(function () { showErr('Нет связи с сервером. Позвоните нам: <a href="' + C.phoneHref + '"><b>' + esc(C.phone) + '</b></a>'); })
+        .then(function () { btn.disabled = false; btn.textContent = label; });
     });
 
-    /* заголовок модалки записи по умолчанию */
-    document.getElementById('modal-book').addEventListener('transitionend', function () {});
+    /* заголовок и подсказка модалки записи по умолчанию */
     var origTitle = 'Записаться на приём';
     var mb = document.getElementById('modal-book');
-    new MutationObserver(function () { if (!mb.classList.contains('is-open')) { mb.querySelector('h2').textContent = origTitle; mb.querySelector('textarea').placeholder = 'Возраст ребёнка, что беспокоит, удобное время'; } }).observe(mb, { attributes: true });
+    new MutationObserver(function () { if (!mb.classList.contains('is-open')) { mb.querySelector('h2').textContent = origTitle; mb.querySelector('textarea').placeholder = COMMENT_HINT; } }).observe(mb, { attributes: true });
   });
 })();

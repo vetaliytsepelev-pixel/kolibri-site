@@ -8,8 +8,14 @@ window.CLINIC = {
   name: 'Детская клиника «Колибри»',
   phone: '+7 (978) 130-00-30',
   phoneHref: 'tel:+79781300030',
-  whatsapp: 'https://wa.me/79781300030',
-  telegram: 'https://t.me/+79781300030',
+  // Мессенджер MAX: ссылка на бота или профиль клиники из business.max.ru (например, 'https://max.ru/id1234567890_bot').
+  // Пока пусто — кнопки MAX на сайте скрыты. WhatsApp и Viber в России заблокированы, Telegram ограничен (2026).
+  max: '',
+  // Сообщество ВКонтакте, например 'https://vk.com/kolibri_clinic'. Пусто — значок не показывается.
+  vk: '',
+  // Куда отправлять заявки с формы: на хостинге — 'form/send.php' (обработчик в папке form/).
+  // Пусто — демо-режим: форма показывает «Спасибо», но заявку никуда не отправляет (так на GitHub Pages).
+  formEndpoint: '',
   site: 'www.kolibri.clinic',
   email: 'info@kolibri.clinic',
   addressShort: 'с. Мирное, ул. Крымской Весны, 9к1',
