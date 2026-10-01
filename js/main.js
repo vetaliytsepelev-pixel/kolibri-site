@@ -168,10 +168,36 @@
     }).join('');
   }
 
+  /* Блок статьи: строка — абзац, {h} — подзаголовок, {ul} — список, {warn, title} — тревожные признаки в рамке, {note} — заметка */
+  function articleBlock(b) {
+    if (typeof b === 'string') return '<p>' + esc(b) + '</p>';
+    if (b.h) return '<h3>' + esc(b.h) + '</h3>';
+    var li = function (x) { return '<li>' + esc(x) + '</li>'; };
+    if (b.ul) return '<ul>' + b.ul.map(li).join('') + '</ul>';
+    if (b.warn) return '<div class="article__warn">' + (b.title ? '<b>' + esc(b.title) + '</b>' : '') + '<ul>' + b.warn.map(li).join('') + '</ul></div>';
+    if (b.note) return '<p class="article__note">' + esc(b.note) + '</p>';
+    return '';
+  }
+
+  /* Статьи: видно вступление (до первого подзаголовка), остальное раскрывается кнопкой «Читать полностью».
+     Ссылка poleznoe.html#id с главной сразу раскрывает нужную статью. */
   function renderArticles(el) {
     el.innerHTML = window.ARTICLES.map(function (a) {
-      return '<article class="article" id="' + a.id + '">' + photo(a.photo, '', a.title) + '<div><div class="news-card__meta">' + a.tags.map(function (t) { return '<span class="tag">' + esc(t) + '</span>'; }).join('') + '<span>' + a.date + '</span></div><h2>' + esc(a.title) + '</h2>' + a.text.map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('') + '<a href="#" class="btn btn--primary btn--sm" data-book>Записаться на приём</a></div></article>';
+      var cut = a.text.findIndex(function (b) { return b && b.h; });
+      if (cut < 0) cut = a.text.length;
+      var lead = a.text.slice(0, cut).map(articleBlock).join('');
+      var rest = a.text.slice(cut).map(articleBlock).join('');
+      return '<article class="article" id="' + a.id + '">' + photo(a.photo, '', a.title) + '<div><div class="news-card__meta">' + a.tags.map(function (t) { return '<span class="tag">' + esc(t) + '</span>'; }).join('') + '<span>' + a.date + '</span></div><h2>' + esc(a.title) + '</h2>' + lead +
+        (rest ? '<details class="article__more"><summary><span class="article__open">Читать полностью</span><span class="article__close">Свернуть</span></summary>' + rest + '</details>' : '') +
+        '<a href="#" class="btn btn--primary btn--sm" data-book>Записаться на приём</a></div></article>';
     }).join('');
+    function openFromHash() {
+      var id = decodeURIComponent(location.hash.slice(1)), art = id && document.getElementById(id);
+      var d = art && art.querySelector('details.article__more');
+      if (d) { d.open = true; art.scrollIntoView(); }
+    }
+    openFromHash();
+    window.addEventListener('hashchange', openFromHash);
   }
 
   function renderReviews(el) {

@@ -488,6 +488,26 @@ p { margin: 0 0 1em; }
 .article h2 { font-size: 24px; }
 .article p { font-size: 16px; }
 .article ul { font-size: 16px; padding-left: 20px; }
+.article li { margin-bottom: 6px; }
+.article h3 { font-size: 19px; margin: 22px 0 8px; color: var(--p900); }
+/* фото статьи остаётся на виду, пока читаешь длинный текст */
+@media (min-width: 761px) { .article > .ph { position: sticky; top: 140px; align-self: start; } }
+.article__more { margin: 4px 0 18px; }
+.article__more > summary {
+  list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+  font-weight: 700; color: var(--p600); padding: 6px 0;
+}
+.article__more > summary::-webkit-details-marker { display: none; }
+.article__more > summary::after { content: ''; width: 8px; height: 8px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg) translateY(-2px); transition: transform .2s; }
+.article__more[open] > summary { order: 2; margin-top: 8px; }
+.article__more[open] > summary::after { transform: rotate(-135deg) translateY(-2px); }
+.article__more .article__close, .article__more[open] .article__open { display: none; }
+.article__more[open] .article__close { display: inline; }
+.article__more[open] { display: flex; flex-direction: column; }
+.article__warn { background: #fff4f6; border-left: 4px solid #d9486a; border-radius: 12px; padding: 14px 18px 6px; margin: 16px 0; }
+.article__warn b { display: block; color: #9c1f3d; margin-bottom: 6px; }
+.article__warn ul { margin: 0; }
+.article__note { font-size: 14px !important; color: var(--muted); border-top: 1px solid var(--l200); padding-top: 12px; margin-top: 18px; }
 @media (max-width: 760px) { .article { grid-template-columns: 1fr; } }
 
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; }
