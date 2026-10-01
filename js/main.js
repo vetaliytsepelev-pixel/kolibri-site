@@ -250,6 +250,9 @@
       })(img);
     }
   }
+  /* версия файлов из адреса main.js (…/main.js?v=XXXX) — чтобы браузер не показывал старые фото из кэша */
+  var mainSrc = (document.querySelector('script[src*="main.js"]') || {}).src || '';
+  var ASSET_VER = /[?&]v=([^&]+)/.test(mainSrc) ? RegExp.$1 : '';
   function loadPhotos(root) {
     (root || document).querySelectorAll('img[data-photo]:not([data-init])').forEach(function (img) {
       img.dataset.init = '1';
@@ -257,7 +260,7 @@
       var key = img.dataset.photo;
       img.onload = function () { img.classList.add('is-loaded'); };
       img.onerror = function () { queue.push(img); next(); };
-      img.src = 'img/photos/' + key + '.jpg';
+      img.src = 'img/photos/' + key + '.jpg' + (ASSET_VER ? '?v=' + ASSET_VER : '');
     });
   }
   window.loadPhotos = loadPhotos;
