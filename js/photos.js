@@ -64,6 +64,12 @@ window.PHOTOS = {
   /* --- о клинике / команда --- */
   'about-team': { p: 'team portrait of five Slavic clinic staff in white coats over lavender scrubs, the chief doctor with short hair in the center, a violet hummingbird in front of them, solid violet studio backdrop', w: 1600, h: 1200, s: 1601, k: 'scene' },
 
+  /* --- статьи «Полезное» --- */
+  'art-pervyj-mesyac': { p: 'Slavic woman neonatologist listening with a stethoscope to a one-month-old baby on a lavender changing mat, young parents watching, a violet hummingbird, solid violet studio backdrop', w: 1600, h: 1200, s: 1621, k: 'scene' },
+  'art-uhod-doma':     { p: 'young mother bathing her newborn in a small white baby bathtub on a lavender table, hooded towel beside, a violet hummingbird, solid violet studio backdrop', w: 1600, h: 1200, s: 1622, k: 'scene' },
+  'art-koliki':        { p: 'young father holding his newborn tummy-down along his forearm (tiger in the tree hold), a violet hummingbird, solid violet studio backdrop', w: 1600, h: 1200, s: 1623, k: 'scene' },
+  'art-zheltuha':      { p: 'neonatologist checking a sleeping swaddled newborn with a small handheld skin bilirubin meter, mother beside, a violet hummingbird, solid violet studio backdrop', w: 1600, h: 1200, s: 1624, k: 'scene' },
+
   /* --- УЗИ: блок «Скрининг новорождённого в 1 месяц» --- */
   'uzi-screening': { p: 'Slavic woman ultrasound doctor in lavender scrubs doing neurosonography on a calm one-month-old baby lying on a lavender blanket, mother holding the baby hand, a violet hummingbird above, solid violet studio backdrop', w: 1600, h: 1200, s: 1611, k: 'scene' },
 
