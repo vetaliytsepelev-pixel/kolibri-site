@@ -206,11 +206,11 @@ p { margin: 0 0 1em; }
 
 /* ---------- Факты ---------- */
 .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 24px; }
-.fact { background: #fff; border-radius: var(--radius-sm); padding: 22px 20px; box-shadow: var(--shadow); text-align: center; }
+.fact { background: #fff; border-radius: var(--radius-sm); padding: 22px 20px; box-shadow: var(--shadow); text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; }
 .fact__num { font-family: var(--font-head); font-weight: 700; font-size: 34px; color: var(--p600); line-height: 1.1; }
-.fact__label { color: var(--muted); font-size: 15px; margin-top: 6px; min-height: 2.8em; display: flex; align-items: center; justify-content: center; line-height: 1.4; }
+.fact__label { color: var(--muted); font-size: 15px; margin-top: 6px; line-height: 1.4; }
 @media (max-width: 860px) { .facts { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 480px) { .fact__num { font-size: 26px; } .fact { padding: 16px 12px; } .fact__label { font-size: 14px; min-height: 3.2em; } }
+@media (max-width: 480px) { .fact__num { font-size: 26px; } .fact { padding: 16px 12px; } .fact__label { font-size: 14px; } }
 
 /* ---------- Услуги ---------- */
 .services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
