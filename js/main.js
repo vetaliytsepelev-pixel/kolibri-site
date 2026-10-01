@@ -189,7 +189,7 @@
       var rest = a.text.slice(cut).map(articleBlock).join('');
       return '<article class="article" id="' + a.id + '">' + photo(a.photo, '', a.title) + '<div><div class="news-card__meta">' + a.tags.map(function (t) { return '<span class="tag">' + esc(t) + '</span>'; }).join('') + '<span>' + a.date + '</span></div><h2>' + esc(a.title) + '</h2>' + lead +
         (rest ? '<details class="article__more"><summary><span class="article__open">Читать полностью</span><span class="article__close">Свернуть</span></summary>' + rest + '</details>' : '') +
-        '<a href="#" class="btn btn--primary btn--sm" data-book>Записаться на приём</a></div></article>';
+        '</div></article>';
     }).join('');
     function openFromHash() {
       var id = decodeURIComponent(location.hash.slice(1)), art = id && document.getElementById(id);
