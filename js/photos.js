@@ -75,15 +75,15 @@ window.PHOTOS = {
   'page-kontakty': { p: 'friendly administrator with dark brown hair in a white blouse at a clinic reception desk with a phone and a computer, bright hall', w: 800, h: 500, s: 1706, k: 'scene' },
 
 
-  /* --- широкие баннеры внутренних страниц: настоящие фото клиента, лежат в img/photos (описания — запасной вариант) --- */
-  'ban-vrachi':   { p: 'smiling woman pediatrician with short blonde hair in a white coat holding a newborn baby, bright clinic room', w: 1600, h: 1200, s: 901, k: 'scene' },
-  'ban-uslugi':   { p: 'baby lying on a white clinic bed with a teddy bear, nurse in the background, bright children ward', w: 1600, h: 1200, s: 903, k: 'scene' },
-  'ban-uzi':      { p: 'woman doctor performing an ultrasound examination of a calm baby, ultrasound machine', w: 1600, h: 1200, s: 905, k: 'scene' },
-  'ban-ceny':     { p: 'smiling woman pediatrician with brown hair holding a swaddled newborn in a bright clinic room', w: 1600, h: 1200, s: 907, k: 'scene' },
-  'ban-poleznoe': { p: 'happy baby lying on a knitted blanket with a teddy bear, warm home light', w: 1600, h: 1200, s: 909, k: 'scene' },
-  'ban-kontakty': { p: 'adult hand gently sheltering a sleeping newborn baby, close-up, tenderness', w: 1600, h: 1200, s: 911, k: 'scene' },
-  'ban-about':    { p: 'tiny premature newborn sleeping in the palms of a doctor in a neonatal unit', w: 1600, h: 1200, s: 913, k: 'scene' },
-
+  /* --- широкие баннеры внутренних страниц: студийные фото из Gemini (промты — Downloads\Маша\Сайт\gemini\ПРОМТЫ.txt,
+         обработка — Meta-Bitrix\цветокор\баннеры-gemini.ps1), лежат в img/photos; описания — запасной вариант --- */
+  'ban-vrachi':   { p: 'two smiling pediatricians, a woman with dark brown hair in a bun and a man with a short beard, white coats over lavender scrubs, a violet hummingbird hovering above her palm, solid violet studio backdrop', w: 1600, h: 1200, s: 901, k: 'scene' },
+  'ban-uslugi':   { p: 'girl with light brown braids in a cream sweater sitting cross-legged, playing doctor with a stethoscope and a plush lilac hummingbird toy, solid violet studio backdrop', w: 1600, h: 1200, s: 903, k: 'scene' },
+  'ban-uzi':      { p: 'smiling woman ultrasound doctor with dark brown hair in lavender scrubs holding an ultrasound probe, a violet hummingbird beside her, solid violet studio backdrop', w: 1600, h: 1200, s: 905, k: 'scene' },
+  'ban-ceny':     { p: 'young mother with light brown hair in a cream blouse holding a baby in a lavender romper and looking at her phone, the baby reaching for a violet hummingbird, solid violet studio backdrop', w: 1600, h: 1200, s: 907, k: 'scene' },
+  'ban-poleznoe': { p: 'father in a lavender cardigan reading a picture book with his little son on a lavender pouf, a white origami hummingbird on the book, solid violet studio backdrop', w: 1600, h: 1200, s: 909, k: 'scene' },
+  'ban-kontakty': { p: 'smiling clinic administrator with chestnut hair in a lavender blouse and lavender headphones holding a phone, a violet hummingbird nearby, solid violet studio backdrop', w: 1600, h: 1200, s: 911, k: 'scene' },
+  'ban-about':    { p: 'mother in a cream sweater holding a sleeping newborn swaddled in a lavender knitted blanket tied with a satin bow like a gift, a violet hummingbird above, solid violet studio backdrop', w: 1600, h: 1200, s: 913, k: 'scene' },
   /* --- направления (страница услуг) --- */
   'dir-pediatr':       { p: 'woman pediatrician with dark brown hair in a white coat listening to a baby chest with a stethoscope, baby lying on a changing table', w: 512, h: 512, s: 1801, k: 'scene' },
   'dir-premature':     { p: 'tiny premature baby wearing a lilac hat sleeping in a warm cot', w: 512, h: 512, s: 802, k: 'scene' },
