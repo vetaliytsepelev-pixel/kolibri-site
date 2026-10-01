@@ -14,12 +14,14 @@
   var q = new URLSearchParams(location.search), n = (+q.get('n') || 1) - 1, w = +q.get('w') || 1366;
   var f = document.createElement('iframe');
   f.style.width = w + 'px'; f.style.height = (+q.get('h') || 720) + 'px';
-  f.src = '../index.html?preview=' + Date.now();
+  // &p=uzi.html — открыть другую страницу (например, чтобы снять баннер страницы в размере телефона)
+  f.src = '../' + (q.get('p') || 'index.html') + '?preview=' + Date.now();
   f.onload = function () {
     var d = f.contentDocument, s = d.createElement('style');
     s.textContent = '*, *::before, *::after { transition: none !important; animation: none !important; }';
     d.head.appendChild(s);
     var slider = d.querySelector('.slider');
+    if (!slider) return;
     slider.dispatchEvent(new Event('mouseenter'));
     d.querySelectorAll('.slide').forEach(function (el, k) { el.classList.toggle('is-active', k === n); });
     d.querySelectorAll('.slider__dot').forEach(function (el, k) { el.classList.toggle('is-active', k === n); });
