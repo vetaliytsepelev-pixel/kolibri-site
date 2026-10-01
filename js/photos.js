@@ -62,7 +62,10 @@ window.PHOTOS = {
   'gal-corridor':  { p: 'clinic corridor with doors to consulting rooms, hummingbird decor on the walls', w: 800, h: 600, s: 506, k: 'interior' },
 
   /* --- о клинике / команда --- */
-  'about-team': { p: 'group photo of a medical team of four women and one man in white coats standing together in a bright clinic hall, dark brown, light brown and blonde hair, friendly smiles', w: 800, h: 600, s: 1601, k: 'scene' },
+  'about-team': { p: 'team portrait of five Slavic clinic staff in white coats over lavender scrubs, the chief doctor with short hair in the center, a violet hummingbird in front of them, solid violet studio backdrop', w: 1600, h: 1200, s: 1601, k: 'scene' },
+
+  /* --- УЗИ: блок «Скрининг новорождённого в 1 месяц» --- */
+  'uzi-screening': { p: 'Slavic woman ultrasound doctor in lavender scrubs doing neurosonography on a calm one-month-old baby lying on a lavender blanket, mother holding the baby hand, a violet hummingbird above, solid violet studio backdrop', w: 1600, h: 1200, s: 1611, k: 'scene' },
 
   /* --- обложки внутренних страниц --- */
   'page-uslugi':   { p: 'woman pediatrician playing with a toddler during a check-up, toy in hand, bright office', w: 800, h: 500, s: 701, k: 'scene' },

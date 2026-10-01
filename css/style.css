@@ -492,6 +492,8 @@ p { margin: 0 0 1em; }
 
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; }
 .two-col .ph { aspect-ratio: 4/3; }
+/* студийные фото из Gemini — целиком, без подрезки на 7 %, которая прятала водяной знак старого генератора */
+.two-col .ph img { width: 100%; height: 100%; object-position: center; }
 @media (max-width: 800px) { .two-col { grid-template-columns: 1fr; } }
 
 .hours { display: grid; gap: 6px; font-size: 15px; }
