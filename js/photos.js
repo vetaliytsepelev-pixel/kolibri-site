@@ -21,7 +21,7 @@ window.PHOTO_STYLES = {
 window.PHOTOS = {
   /* --- главный слайдер: студийные фото из Gemini, как баннеры страниц (img/photos; описания — запасной вариант) --- */
   'hero-newborn':   { p: 'smiling woman pediatrician with light brown hair in a bun, white coat over lavender scrubs, holding a laughing baby in a white bodysuit who reaches for a violet hummingbird, solid violet studio backdrop', w: 1600, h: 1200, s: 101, k: 'scene' },
-  'hero-uzi':       { p: 'young woman ultrasound doctor with a black braid in lavender scrubs gently scanning the tummy of a smiling baby lying on a lavender blanket, a violet hummingbird above, solid violet studio backdrop', w: 1600, h: 1200, s: 1102, k: 'scene' },
+  'hero-uzi':       { p: 'young Slavic woman ultrasound doctor with a light brown braid in lavender scrubs gently scanning the tummy of a smiling fair-haired baby lying on a lavender blanket, a violet hummingbird above, solid violet studio backdrop', w: 1600, h: 1200, s: 1102, k: 'scene' },
   'hero-premature': { p: 'doctor hands in white sleeves holding a tiny sleeping newborn swaddled in white muslin with a lavender knitted hat, a violet hummingbird above, solid violet studio backdrop', w: 1600, h: 1200, s: 103, k: 'scene' },
   'hero-program':   { p: 'one-year-old girl with light curls in a lavender knitted romper taking first steps holding the fingers of a smiling pediatrician kneeling behind her, a violet hummingbird ahead, solid violet studio backdrop', w: 1600, h: 1200, s: 104, k: 'scene' },
   /* --- карточки услуг на главной --- */
