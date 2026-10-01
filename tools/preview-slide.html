@@ -15,7 +15,8 @@
   var f = document.createElement('iframe');
   f.style.width = w + 'px'; f.style.height = (+q.get('h') || 720) + 'px';
   // &p=uzi.html — открыть другую страницу (например, чтобы снять баннер страницы в размере телефона)
-  f.src = '../' + (q.get('p') || 'index.html') + '?preview=' + Date.now();
+  // &hash=koliki — открыть страницу с якорем (например, раскрытая статья в «Полезном»)
+  f.src = '../' + (q.get('p') || 'index.html') + '?preview=' + Date.now() + (q.get('hash') ? '#' + q.get('hash') : '');
   f.onload = function () {
     var d = f.contentDocument, s = d.createElement('style');
     s.textContent = '*, *::before, *::after { transition: none !important; animation: none !important; }';
