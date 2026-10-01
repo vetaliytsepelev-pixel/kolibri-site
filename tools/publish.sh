@@ -11,9 +11,11 @@ cp "$SRC"/*.html "$REPO/"
 cp "$SRC"/css/*.css "$REPO/css/"
 cp "$SRC"/js/*.js "$REPO/js/"
 mkdir -p "$REPO/img/photos" && cp "$SRC"/img/*.png "$REPO/img/" && cp "$SRC"/img/photos/*.jpg "$REPO/img/photos/"
+# шрифты (Comfortaa, Nunito) лежат на сайте вместе с текстами лицензий OFL
+mkdir -p "$REPO/fonts" && cp "$SRC"/fonts/*.woff2 "$SRC"/fonts/OFL-*.txt "$REPO/fonts/"
 # версия в адресах стилей и скриптов
 for f in "$REPO"/*.html; do
-  sed -i -E "s#(css/style\.css)(\?v=[0-9]+)?\"#\1?v=$VER\"#g; s#(js/(data|photos|main|rostomer)\.js)(\?v=[0-9]+)?\"#\1?v=$VER\"#g" "$f"
+  sed -i -E "s#(css/(style|fonts)\.css)(\?v=[0-9]+)?\"#\1?v=$VER\"#g; s#(js/(data|photos|main|rostomer)\.js)(\?v=[0-9]+)?\"#\1?v=$VER\"#g" "$f"
 done
 cd "$REPO"
 git add -A
