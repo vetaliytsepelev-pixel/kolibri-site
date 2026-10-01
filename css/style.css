@@ -417,16 +417,23 @@ p { margin: 0 0 1em; }
 @media (max-width: 860px) { .page-hero__box { grid-template-columns: 1fr; padding: 32px 24px; } }
 
 .dir-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-.dir { background: #fff; border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow); display: grid; grid-template-columns: 1fr 200px; gap: 20px; align-items: start; scroll-margin-top: 140px; }
-.dir .ph { aspect-ratio: 1/1; border-radius: 18px; }
-.dir h3 { margin-bottom: 8px; }
-.dir p { color: var(--muted); font-size: 15px; }
-.dir ul { padding-left: 18px; margin: 0 0 14px; font-size: 15px; }
+.dir { background: #fff; border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow); position: relative; overflow: hidden; scroll-margin-top: 140px; display: flex; flex-direction: column; }
+.dir::before {
+  content: ''; position: absolute; right: -80px; bottom: -80px; width: 280px; height: 280px; border-radius: 50%;
+  background: radial-gradient(circle, var(--l100) 0%, rgba(239,232,247,0) 70%); pointer-events: none;
+}
+.dir__bg { position: absolute; right: -30px; bottom: -30px; width: 210px; height: 210px; color: var(--p600); opacity: .07; transform: rotate(-12deg); pointer-events: none; }
+.dir__bg svg { width: 100%; height: 100%; }
+.dir__icon { width: 64px; height: 64px; border-radius: 20px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--l100), var(--l200)); color: var(--p600); margin-bottom: 18px; position: relative; }
+.dir__icon svg { width: 34px; height: 34px; }
+.dir h3 { margin-bottom: 8px; position: relative; }
+.dir p { color: var(--muted); font-size: 15px; position: relative; }
+.dir ul { padding-left: 18px; margin: 0 0 14px; font-size: 15px; position: relative; }
 .dir li { margin-bottom: 4px; }
-.dir__doctors { font-size: 14px; color: var(--muted); margin-bottom: 14px; }
+.dir__doctors { font-size: 14px; color: var(--muted); margin-bottom: 14px; position: relative; margin-top: auto; }
 .dir__doctors a { font-weight: 600; }
+.dir__actions { display: flex; gap: 8px; flex-wrap: wrap; position: relative; }
 @media (max-width: 1000px) { .dir-list { grid-template-columns: 1fr; } }
-@media (max-width: 560px) { .dir { grid-template-columns: 1fr; } .dir .ph { max-width: 200px; order: -1; } }
 
 .uzi-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
 .uzi-item { background: #fff; border-radius: var(--radius-sm); padding: 22px 24px; box-shadow: var(--shadow); display: flex; gap: 16px; }

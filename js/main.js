@@ -187,14 +187,34 @@
     }).join('');
   }
 
+  /* Иконки направлений (линейные, 24×24) */
+  var S = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">';
+  var DIR_ICONS = {
+    pediatr: S + '<path d="M5 3v6a6 6 0 0 0 12 0V3"/><path d="M4 3h2M16 3h2"/><path d="M11 15v1.5a4.5 4.5 0 0 0 9 0V14"/><circle cx="20" cy="11.5" r="2.5"/></svg>',
+    nedonoshennye: S + '<circle cx="12" cy="13.5" r="7"/><path d="M12 6.5c0-2 1.5-3 3-2.5"/><path d="M9.5 12.5h.01M14.5 12.5h.01"/><path d="M9.5 16c1.5 1.3 3.5 1.3 5 0"/></svg>',
+    ortoped: S + '<path d="M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5 .5.5 0 0 1-.5-.5 2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5Z"/></svg>',
+    hirurg: S + '<rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M12 11v5M9.5 13.5h5"/></svg>',
+    nevrolog: S + '<path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M12 5v13"/></svg>',
+    oftalmolog: S + '<path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',
+    lor: S + '<path d="M6 8.5a6.5 6.5 0 1 1 13 0c0 6-6 6-6 10a3.5 3.5 0 1 1-7 0"/><path d="M15 8.5a2.5 2.5 0 0 0-5 0v1a2 2 0 1 1 0 4"/></svg>',
+    uzd: S + '<rect x="3" y="4" width="18" height="13" rx="2.5"/><path d="M6.5 11c1.4-2.6 2.6-2.6 4 0s2.6 2.6 4 0 2-2 3 0"/><path d="M12 17v3M8 20h8"/></svg>',
+    logoped: S + '<path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12z"/><path d="M8.5 11h7M8.5 14h4"/></svg>',
+    psiholog: S + '<circle cx="12" cy="12" r="9"/><path d="M8.5 10h.01M15.5 10h.01"/><path d="M8.5 14.5c1 1.5 2.3 2 3.5 2s2.5-.5 3.5-2"/></svg>',
+    medsestra: S + '<path d="m18 2 4 4"/><path d="m17 7 3-3"/><path d="M19 9 8.7 19.3a2.4 2.4 0 0 1-3.4 0L2.6 16.6a2.4 2.4 0 0 1 0-3.4L13 3"/><path d="m9 11 4 4"/><path d="m5 19-3 3"/><path d="m14 4 6 6"/></svg>',
+    gv: S + '<path d="M9 2h6M10 2v3.3a2 2 0 0 1-1 1.7A4 4 0 0 0 7 10.5V20a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-9.5a4 4 0 0 0-2-3.5 2 2 0 0 1-1-1.7V2"/><path d="M7 13h10M7 17h10"/></svg>'
+  };
+  var DEFAULT_ICON = S + '<path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z"/></svg>';
+  window.DIR_ICONS = DIR_ICONS;
+
   function renderDirections(el) {
     var byId = {}; window.DOCTORS.forEach(function (d) { byId[d.id] = d; });
     el.innerHTML = window.DIRECTIONS.map(function (d) {
       var docs = d.doctors.map(function (id) { return byId[id] ? '<a href="#" data-doctor="' + id + '">' + esc(byId[id].name) + '</a>' : ''; }).filter(Boolean).join(', ');
-      return '<div class="dir" id="' + d.id + '"><div><h3>' + esc(d.title) + '</h3><p>' + esc(d.short) + '</p><ul>' + d.list.map(function (l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul>' +
+      var ico = DIR_ICONS[d.id] || DEFAULT_ICON;
+      return '<div class="dir" id="' + d.id + '"><div class="dir__bg">' + ico + '</div><div class="dir__icon">' + ico + '</div>' +
+        '<h3>' + esc(d.title) + '</h3><p>' + esc(d.short) + '</p><ul>' + d.list.map(function (l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul>' +
         (docs ? '<div class="dir__doctors">Специалисты: ' + docs + '</div>' : '<div class="dir__doctors">Специалист ведёт приём по записи</div>') +
-        '<div style="display:flex;gap:8px;flex-wrap:wrap"><a href="#" class="btn btn--primary btn--sm" data-book>Записаться</a>' + (d.link ? '<a href="' + d.link + '" class="btn btn--outline btn--sm">Подробнее</a>' : '') + '</div></div>' +
-        photo(d.photo, '', d.title) + '</div>';
+        '<div class="dir__actions"><a href="#" class="btn btn--primary btn--sm" data-book>Записаться</a>' + (d.link ? '<a href="' + d.link + '" class="btn btn--outline btn--sm">Подробнее</a>' : '') + '</div></div>';
     }).join('');
   }
 
