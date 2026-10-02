@@ -331,10 +331,11 @@ p { margin: 0 0 1em; }
 @media (max-width: 560px) { .reviews { grid-template-columns: 1fr; } }
 
 /* ---------- Галерея ---------- */
+/* галерея: вертикальные визуализации интерьера от клиента (3:4) — целиком, три в ряд, на телефоне два */
 .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.gallery .ph { aspect-ratio: 4/3; }
-.gallery .ph:first-child { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; }
-@media (max-width: 700px) { .gallery { grid-template-columns: 1fr 1fr; } .gallery .ph:first-child { grid-column: span 2; grid-row: auto; aspect-ratio: 16/10; } }
+.gallery .ph { aspect-ratio: 3/4; }
+.gallery .ph img { width: 100%; height: 100%; object-position: center; }
+@media (max-width: 700px) { .gallery { grid-template-columns: 1fr 1fr; gap: 10px; } }
 
 /* ---------- Контакты ---------- */
 .contacts { display: grid; grid-template-columns: 420px 1fr; gap: 20px; }

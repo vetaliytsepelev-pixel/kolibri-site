@@ -53,14 +53,13 @@ window.PHOTOS = {
   'news-3': { p: 'vaccination calendar, vaccine vial and syringe on a lilac desk with a small teddy bear', w: 640, h: 440, s: 403, k: 'scene' },
   'news-4': { p: 'child neurologist with dark brown hair in a white coat checking the reflexes of a smiling baby lying on an examination couch, small reflex hammer', w: 640, h: 440, s: 1404, k: 'scene' },
 
-  /* --- галерея клиники --- */
-  'gal-reception': { p: 'reception desk with purple hummingbird logo on the wall, waiting area with lilac armchairs', w: 1024, h: 680, s: 501, k: 'interior' },
-  'gal-office':    { p: 'pediatrician consulting room with a changing table, scale and toys', w: 800, h: 600, s: 502, k: 'interior' },
-  'gal-uzi':       { p: 'ultrasound diagnostic room with an expert-class ultrasound machine and a couch', w: 800, h: 600, s: 503, k: 'interior' },
-  'gal-play':      { p: 'children play corner with soft lilac cushions, wooden toys and books', w: 800, h: 600, s: 504, k: 'interior' },
-  'gal-treatment': { p: 'treatment room with a vaccination fridge, medical cabinet and a couch', w: 800, h: 600, s: 505, k: 'interior' },
-  'gal-corridor':  { p: 'clinic corridor with doors to consulting rooms, hummingbird decor on the walls', w: 800, h: 600, s: 506, k: 'interior' },
-
+  /* --- галерея клиники: визуализации интерьера от клиента (img/photos), описания — запасной вариант --- */
+  'gal-hall':      { p: 'bright clinic hall with a waiting area, grey sofa with pink cushions, marble coffee table, crystal chandeliers, large windows', w: 1024, h: 1365, s: 501, k: 'interior' },
+  'gal-reception': { p: 'clinic reception desk with marble top and rose gold front, pink flowers, waiting area', w: 1024, h: 1365, s: 502, k: 'interior' },
+  'gal-uzi':       { p: 'ultrasound diagnostic room with an ultrasound machine, couch and window', w: 1024, h: 1365, s: 503, k: 'interior' },
+  'gal-doctor':    { p: 'doctor consulting room with a wooden desk, two chairs and baby photos on the wall', w: 1024, h: 1365, s: 504, k: 'interior' },
+  'gal-procedure': { p: 'treatment room with a medical couch, medical cart and screen, baby photos on the wall', w: 1024, h: 1365, s: 505, k: 'interior' },
+  'gal-lor':       { p: 'ENT doctor room with an ENT workstation and patient chair', w: 1024, h: 1365, s: 506, k: 'interior' },
   /* --- о клинике / команда --- */
   'about-team': { p: 'team portrait of five Slavic clinic staff in white coats over lavender scrubs, the chief doctor with short hair in the center, a violet hummingbird in front of them, solid violet studio backdrop', w: 1600, h: 1200, s: 1601, k: 'scene' },
 
