@@ -110,7 +110,7 @@
   /* ---------- Модальные окна ---------- */
   var COMMENT_HINT = 'Возраст ребёнка, удобное время для звонка';
   function renderModals() {
-    var opts = window.DOCTORS.map(function (d) { return '<option value="' + d.id + '">' + esc(d.name) + ' — ' + esc(d.spec[0]) + '</option>'; }).join('');
+    var opts = window.DOCTORS.filter(function (d) { return !d.staff; }).map(function (d) { return '<option value="' + d.id + '">' + esc(d.name) + ' — ' + esc(d.spec[0]) + '</option>'; }).join('');
     return '<div class="modal" id="modal-book"><div class="modal__box">' +
       '<button class="modal__close" type="button" data-close aria-label="Закрыть">' + I.close + '</button>' +
       '<h2 style="font-size:26px">Записаться на приём</h2><p class="muted" style="font-size:15px">Оставьте контакты — администратор перезвонит, подберёт врача и удобное время.</p>' +
@@ -163,6 +163,8 @@
 
   /* ---------- Карточки ---------- */
   function doctorCard(d) {
+    /* администраторы и младший персонал (staff): только фото, ФИО и должность — без записи и «Подробнее» */
+    if (d.staff) return '<div class="doctor doctor--staff">' + photo(d.photo, 'ph--round doctor__photo', d.name) + '<h3>' + esc(d.name) + '</h3><div class="doctor__spec">' + d.spec.map(function (s) { return '<span>' + esc(s) + '</span>'; }).join('') + '</div></div>';
     return '<div class="doctor">' + photo(d.photo, 'ph--round doctor__photo', d.name).replace('class="ph ', 'data-doctor="' + d.id + '" class="ph ') +
       '<h3>' + esc(d.name) + '</h3>' +
       (d.exp ? '<span class="tag doctor__exp">Стаж ' + years(d.exp) + '</span>' : (d.category ? '<span class="tag doctor__exp">' + esc(d.category) + '</span>' : '<span class="tag doctor__exp">Приём детей с рождения</span>')) +
@@ -172,7 +174,8 @@
   function renderDoctors(el) {
     var limit = parseInt(el.dataset.limit || '0', 10);
     var ids = (el.dataset.ids || '').split(',').filter(Boolean);
-    var list = ids.length ? window.DOCTORS.filter(function (d) { return ids.indexOf(d.id) >= 0; }) : window.DOCTORS;
+    var staff = el.dataset.staff === '1';
+    var list = ids.length ? window.DOCTORS.filter(function (d) { return ids.indexOf(d.id) >= 0; }) : window.DOCTORS.filter(function (d) { return !!d.staff === staff; });
     if (limit) list = list.slice(0, limit);
     el.innerHTML = list.map(doctorCard).join('');
   }

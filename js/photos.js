@@ -47,6 +47,11 @@ window.PHOTOS = {
   'doc-mizinova':     { p: 'portrait of a 45-year-old Eastern European woman nurse in a lilac medical uniform, light brown hair, kind face', w: 512, h: 640, s: 312, k: 'portrait' },
   'doc-khomenko':     { p: 'portrait of a 47-year-old Eastern European woman nurse in a lilac medical uniform, dark blonde hair, warm smile', w: 512, h: 640, s: 313, k: 'portrait' },
 
+  /* --- заглушка для сотрудников без фото: колибри на фирменном фоне (img/photos/doc-nophoto.jpg) --- */
+  'doc-nophoto': { p: 'purple hummingbird logo on a soft light lavender background', w: 800, h: 1000, s: 399, k: 'portrait' },
+  'doc-menaeva':   { p: 'portrait of a woman child psychologist with auburn wavy hair in a white uniform', w: 800, h: 1000, s: 314, k: 'portrait' },
+  'doc-sattarova': { p: 'portrait of a woman nurse with long brown hair and white glasses in a white uniform', w: 800, h: 1000, s: 315, k: 'portrait' },
+
   /* --- полезное (статьи) --- */
   'news-1': { p: 'newborn baby checkup, woman pediatrician measuring a baby on a scale in a bright office', w: 640, h: 440, s: 401, k: 'scene' },
   'news-2': { p: 'doctor with dark brown hair performing echocardiography on a newborn baby lying on a couch, small ultrasound transducer on the baby chest, monitor with a heart ultrasound image', w: 640, h: 440, s: 1402, k: 'scene' },

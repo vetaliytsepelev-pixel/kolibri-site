@@ -64,14 +64,14 @@ window.DOCTORS = [
     spec: ['Ортопед-травматолог'],
     category: 'Врач высшей категории',
     exp: 23,
-    photo: 'doc-ponikarov',
+    photo: 'doc-nophoto',   // фото пока нет — колибри на фирменном фоне
     text: [
       'Врач ортопед-травматолог высшей категории. Стаж работы по специальности — 23 года.'
     ]
   },
   {
     id: 'vermenich',
-    name: 'Верменич Ксения Валерьевна',
+    name: 'Верменич Ксения Валериевна',
     spec: ['Детский хирург', 'Детский уролог-андролог', 'Врач УЗД'],
     category: '',
     exp: null,
@@ -82,7 +82,7 @@ window.DOCTORS = [
   },
   {
     id: 'seitmemetova',
-    name: 'Сейтмеметова Шерфе-заде Джеляловна',
+    name: 'Сейтмеметова Шерфе-Заде Джеляловна',
     spec: ['Врач ультразвуковой диагностики'],
     category: '',
     exp: null,
@@ -152,9 +152,20 @@ window.DOCTORS = [
     spec: ['Невролог'],
     category: '',
     exp: null,
-    photo: 'doc-dedkova',
+    photo: 'doc-nophoto',   // фото пока нет — колибри на фирменном фоне
     text: [
       'Врач-невролог. Ведёт приём детей с рождения.'
+    ]
+  },
+  {
+    id: 'menaeva',
+    name: 'Менаева Ольга Сергеевна',
+    spec: ['Детский психолог'],
+    category: '',
+    exp: null,
+    photo: 'doc-menaeva',
+    text: [
+      'Детский психолог.'
     ]
   },
   {
@@ -163,7 +174,7 @@ window.DOCTORS = [
     spec: ['Медицинская сестра'],
     category: 'Высшая категория',
     exp: null,
-    photo: 'doc-mizinova',
+    photo: 'doc-nophoto',   // фото пока нет — колибри на фирменном фоне
     text: [
       'Медицинская сестра высшей категории.'
     ]
@@ -174,11 +185,40 @@ window.DOCTORS = [
     spec: ['Медицинская сестра'],
     category: 'Высшая категория',
     exp: null,
-    photo: 'doc-khomenko',
+    photo: 'doc-nophoto',   // фото пока нет — колибри на фирменном фоне
     text: [
       'Медицинская сестра высшей категории.'
     ]
-  }
+  },
+  {
+    id: 'veliulaeva',
+    name: 'Велиулаева Зебиде Серверовна',
+    spec: ['Медицинская сестра'],
+    category: 'Высшая категория',
+    exp: null,
+    photo: 'doc-nophoto',   // фото пока нет — колибри на фирменном фоне
+    text: [
+      'Медицинская сестра высшей категории.'
+    ]
+  },
+  {
+    id: 'sattarova',
+    name: 'Саттарова Эвелина Альбертовна',
+    spec: ['Медицинская сестра', 'Консультант по грудному вскармливанию'],
+    category: '',
+    exp: null,
+    photo: 'doc-sattarova',
+    text: [
+      'Медицинская сестра, консультант по грудному вскармливанию.'
+    ]
+  },
+  /* staff: true — администраторы и младший персонал: на странице «Врачи» отдельным блоком, без кнопок записи */
+  { id: 'mazur',       name: 'Мазур Екатерина Александровна',   spec: ['Администратор'], category: '', exp: null, photo: 'doc-nophoto', text: [], staff: true },
+  { id: 'khalikova',   name: 'Халикова Зарема Суфьяновна',      spec: ['Администратор'], category: '', exp: null, photo: 'doc-nophoto', text: [], staff: true },
+  { id: 'ibadullaeva', name: 'Ибадуллаева Ленара Энверовна',    spec: ['Администратор'], category: '', exp: null, photo: 'doc-nophoto', text: [], staff: true },
+  { id: 'visheyko',    name: 'Вишейко Юлия Валериевна',         spec: ['Администратор'], category: '', exp: null, photo: 'doc-nophoto', text: [], staff: true },
+  { id: 'eskanderova', name: 'Эскандерова Айше Раифовна',       spec: ['Санитарка'],     category: '', exp: null, photo: 'doc-nophoto', text: [], staff: true },
+  { id: 'doroshenko',  name: 'Дорошенко Анна Сергеевна',        spec: ['Санитарка'],     category: '', exp: null, photo: 'doc-nophoto', text: [], staff: true }
 ];
 
 /* ---------- Направления / специалисты ---------- */
@@ -262,7 +302,7 @@ window.DIRECTIONS = [
     short: 'Поддержка ребёнка и родителей: адаптация, тревожность, поведение, семья.',
     photo: 'dir-psycholog',
     list: ['Консультации для детей и родителей', 'Адаптация к саду и школе', 'Поддержка семей недоношенных детей'],
-    doctors: []
+    doctors: ['menaeva']
   },
   {
     id: 'medsestra',
@@ -270,7 +310,7 @@ window.DIRECTIONS = [
     short: 'Процедуры и патронаж: инъекции, забор анализов, обработка пупочной ранки.',
     photo: 'dir-nurse',
     list: ['Вакцинация с рождения', 'Внутримышечные и внутривенные инъекции', 'Забор анализов', 'Патронаж новорождённого на дому'],
-    doctors: ['mizinova', 'khomenko']
+    doctors: ['mizinova', 'khomenko', 'veliulaeva', 'sattarova']
   },
   {
     id: 'gv',
@@ -278,7 +318,7 @@ window.DIRECTIONS = [
     short: 'Помощь в налаживании кормления с первых дней: прикладывание, лактация, докорм.',
     photo: 'dir-breastfeeding',
     list: ['Консультация в клинике и на дому', 'Прикладывание, позы для кормления', 'Недостаток молока, лактостаз', 'Кормление недоношенного ребёнка'],
-    doctors: []
+    doctors: ['sattarova']
   }
 ];
 
