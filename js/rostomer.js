@@ -10,15 +10,18 @@
 
   function scale(parent, o) {
     o = o || {}; var base = o.base || 115, col = o.color || P600, num = o.num || P900, to = o.to == null ? 95 : o.to;
+    var rtl = !!o.rtl;                       // rtl: ноль у правого края, числа растут влево (голова ребёнка справа)
+    var X = function (cm) { return rtl ? 970 - cm * 10 : cm * 10; };
     el('rect', { x: 0, y: base, width: 970, height: 1.2, fill: col }, parent);
     for (var cm = 0; cm <= to; cm++) {
-      var x = cm * 10, h = cm % 10 === 0 ? 16 : cm % 5 === 0 ? 11 : 6, sw = cm % 10 === 0 ? 1.6 : cm % 5 === 0 ? 1.2 : 0.8;
+      var x = X(cm), h = cm % 10 === 0 ? 16 : cm % 5 === 0 ? 11 : 6, sw = cm % 10 === 0 ? 1.6 : cm % 5 === 0 ? 1.2 : 0.8;
       el('rect', { x: x - sw / 2, y: base - h, width: sw, height: h, fill: col }, parent);
       if (cm % 10 === 0 && cm > 0 && !o.circles) text(parent, x, base - 21, cm, 13, num);
       if (cm % 10 === 0 && cm > 0 && o.circles) { el('circle', { cx: x, cy: base - 28, r: 9.5, fill: P600 }, parent); text(parent, x, base - 24.4, cm, 10, W); }
     }
-    text(parent, 962, base - 21, 'см', 8, num, 'end', 600);
+    if (rtl) text(parent, 8, base - 21, 'см', 8, num, 'start', 600); else text(parent, 962, base - 21, 'см', 8, num, 'end', 600);
   }
+  R.X = function (cm, rtl) { return rtl ? 970 - cm * 10 : cm * 10; };
   function defsGrad(svg, id, c1, c2) { var d = el('defs', {}, svg); var g = el('linearGradient', { id: id, x1: 0, y1: 0, x2: 1, y2: 0 }, d); el('stop', { offset: '0%', 'stop-color': c1 }, g); el('stop', { offset: '100%', 'stop-color': c2 }, g); }
   function cloud(parent, x, y, s, fill) { var g = el('g', { transform: 'translate(' + x + ' ' + y + ') scale(' + s + ')', fill: fill }, parent); el('circle', { cx: 0, cy: 0, r: 7 }, g); el('circle', { cx: 8, cy: -3, r: 9 }, g); el('circle', { cx: 18, cy: 0, r: 7 }, g); el('rect', { x: -6, y: 0, width: 30, height: 7, rx: 3.5 }, g); }
 
@@ -33,11 +36,15 @@
   function v2(svg, zoom) {
     defsGrad(svg, 'g2', P600, '#b9a3dd');
     el('rect', { x: 0, y: 0, width: 970, height: 155, fill: 'url(#g2)' }, svg);
-    el('path', { d: 'M 0 82 C 200 66, 400 84, 600 74 S 850 58, 970 66', fill: 'none', stroke: W, 'stroke-width': 1.4, 'stroke-dasharray': '4 5', opacity: .75 }, svg);
+    /* зеркально: ноль справа (голова ребёнка у правой боковины), «полёт» и вехи идут вправо-влево */
+    el('path', { d: 'M 970 82 C 770 66, 570 84, 370 74 S 120 58, 0 66', fill: 'none', stroke: W, 'stroke-width': 1.4, 'stroke-dasharray': '4 5', opacity: .75 }, svg);
     var marks = [[50, 'новорождённый'], [61, '3 мес'], [67, '6 мес'], [75, '1 год'], [87, '2 года']];
-    marks.forEach(function (m, i) { var x = m[0] * 10, y = [58, 50, 42, 34, 26][i]; el('line', { x1: x, y1: y, x2: x, y2: 82, stroke: W, 'stroke-width': 1, opacity: .9 }, svg); el('circle', { cx: x, cy: y, r: 3.2, fill: W }, svg); text(svg, x, y - 6, m[0] + ' см · ' + m[1], 7, W, 'middle', 700); });
-    if (!zoom) { bird(svg, 915, 6, 48, 1, true); text(svg, 12, 30, 'Колибри', 13, W, 'start'); text(svg, 12, 41, 'растём вместе', 7, W, 'start', 600); }
-    scale(svg, { color: W, num: W });
+    marks.forEach(function (m, i) { var x = R.X(m[0], true), y = [58, 50, 42, 34, 26][i]; el('line', { x1: x, y1: y, x2: x, y2: 82, stroke: W, 'stroke-width': 1, opacity: .9 }, svg); el('circle', { cx: x, cy: y, r: 3.2, fill: W }, svg); text(svg, x, y - 6, m[0] + ' см · ' + m[1], 7, W, 'middle', 700); });
+    if (!zoom) {
+      var g = el('g', { transform: 'translate(56 6) scale(-1 1)' }, svg); bird(g, 0, 0, 48, 1, true);   // птица слева, смотрит внутрь
+      text(svg, 958, 30, 'Колибри', 13, W, 'end'); text(svg, 958, 41, 'растём вместе', 7, W, 'end', 600);
+    }
+    scale(svg, { color: W, num: W, rtl: true });
   }
   function v3(svg, zoom) {
     el('rect', { x: 0, y: 0, width: 970, height: 155, fill: L100 }, svg);
@@ -56,7 +63,7 @@
 
   R.variants = [
     { id: 1, name: 'классика', build: v1, zoomFrom: 0 },
-    { id: 2, name: 'вехи-роста', build: v2, zoomFrom: 400 },
+    { id: 2, name: 'вехи-роста', build: v2, zoomFrom: 270 },
     { id: 3, name: 'птички-и-облака', build: v3, zoomFrom: 0 },
     { id: 4, name: 'тёмный', build: v4, zoomFrom: 0 }
   ];
