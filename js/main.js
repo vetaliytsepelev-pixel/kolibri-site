@@ -165,7 +165,7 @@
   function doctorCard(d) {
     /* администраторы и младший персонал (staff): только фото, ФИО и должность — без записи и «Подробнее» */
     if (d.staff) return '<div class="doctor doctor--staff">' + photo(d.photo, 'ph--round doctor__photo', d.name) + '<h3>' + esc(d.name) + '</h3><div class="doctor__spec">' + d.spec.map(function (s) { return '<span>' + esc(s) + '</span>'; }).join('') + '</div></div>';
-    return '<div class="doctor">' + photo(d.photo, 'ph--round doctor__photo', d.name).replace('class="ph ', 'data-doctor="' + d.id + '" class="ph ') +
+    return '<div class="doctor">' + photo(d.ava || d.photo, 'ph--round doctor__photo', d.name).replace('class="ph ', 'data-doctor="' + d.id + '" class="ph ') +
       '<h3>' + esc(d.name) + '</h3>' +
       (d.exp ? '<span class="tag doctor__exp">Стаж ' + years(d.exp) + '</span>' : (d.category ? '<span class="tag doctor__exp">' + esc(d.category) + '</span>' : '<span class="tag doctor__exp">Приём детей с рождения</span>')) +
       '<div class="doctor__spec">' + d.spec.map(function (s) { return '<span>' + esc(s) + '</span>'; }).join('') + '</div>' +
