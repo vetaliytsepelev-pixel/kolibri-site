@@ -237,7 +237,7 @@
   }
 
   function renderReviews(el) {
-    el.innerHTML = '<div class="review review--cta"><div><h3>Для нас важно ваше мнение!</h3><p>Расскажите, как прошёл визит в «Колибри» — это помогает нам становиться лучше.</p></div><a href="#" class="btn btn--light" data-review>Оставить отзыв</a></div>' +
+    el.innerHTML = '<div class="review review--cta' + (window.REVIEWS.length ? '' : ' review--wide') + '"><div><h3>Для нас важно ваше мнение!</h3><p>Расскажите, как прошёл визит в «Колибри» — это помогает нам становиться лучше.</p></div><a href="#" class="btn btn--light" data-review>Оставить отзыв</a></div>' +
       window.REVIEWS.map(function (r) {
         return '<div class="review"><div class="review__head"><h3>' + esc(r.name) + '</h3><span class="review__date">' + r.date + '</span></div><div class="review__stars">' + '★★★★★'.slice(0, r.stars) + '</div><p>' + esc(r.text) + '</p><div class="review__doctor">Врач: ' + esc(r.doctor) + '</div></div>';
       }).join('');

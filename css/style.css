@@ -332,6 +332,11 @@ p { margin: 0 0 1em; }
 .review--cta { background: linear-gradient(140deg, var(--p600), var(--p800)); color: #fff; display: flex; flex-direction: column; justify-content: space-between; }
 .review--cta h3 { color: #fff; font-size: 24px; margin-bottom: 12px; }
 .review--cta p { color: rgba(255,255,255,.85); margin-bottom: 20px; }
+/* пока настоящих отзывов нет — карточка «Оставить отзыв» одна, во всю ширину */
+.review--wide { grid-column: 1 / -1; flex-direction: row; align-items: center; gap: 24px; }
+.review--wide p { margin-bottom: 0; }
+.review--wide .btn { flex-shrink: 0; }
+@media (max-width: 640px) { .review--wide { flex-direction: column; align-items: flex-start; } }
 @media (max-width: 960px) { .reviews { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 560px) { .reviews { grid-template-columns: 1fr; } }
 
