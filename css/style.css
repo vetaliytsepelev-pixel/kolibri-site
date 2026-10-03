@@ -381,6 +381,7 @@ p { margin: 0 0 1em; }
 .footer__social a { width: 40px; height: 40px; border-radius: 50%; background: var(--l100); display: flex; align-items: center; justify-content: center; color: var(--p700); }
 .footer__social a:hover { background: var(--p600); color: #fff; }
 .footer__social svg { width: 20px; height: 20px; }
+.footer__legal { margin-top: 8px; font-size: 13px; color: var(--muted); }
 .footer__bottom { margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--l200); font-size: 13px; color: var(--muted); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .footer__warn { margin-top: 20px; padding: 14px 18px; border-radius: 12px; background: var(--l100); font-family: var(--font-head); font-weight: 700; font-size: 13px; color: var(--p800); text-align: center; letter-spacing: .02em; }
 @media (max-width: 900px) { .footer__grid { grid-template-columns: 1fr 1fr; } }
