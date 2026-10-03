@@ -207,7 +207,8 @@ window.DOCTORS = [
     spec: ['Медицинская сестра'],
     category: 'Высшая категория',
     exp: null,
-    photo: 'doc-nophoto',   // фото пока нет — колибри на фирменном фоне
+    photo: 'doc-veliulaeva',
+    ava: 'doc-veliulaeva-ava',   // кружок в карточке: лицо по центру
     text: [
       'Медицинская сестра высшей категории.'
     ]

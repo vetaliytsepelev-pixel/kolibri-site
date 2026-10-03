@@ -51,6 +51,7 @@ window.PHOTOS = {
   'doc-nophoto': { p: 'purple hummingbird logo on a soft light lavender background', w: 800, h: 1000, s: 399, k: 'portrait' },
   'doc-menaeva':   { p: 'portrait of a woman child psychologist with auburn wavy hair in a white uniform', w: 800, h: 1000, s: 314, k: 'portrait' },
   'doc-sattarova': { p: 'portrait of a woman nurse with long brown hair and white glasses in a white uniform', w: 800, h: 1000, s: 315, k: 'portrait' },
+  'doc-veliulaeva': { p: 'portrait of a woman nurse with blonde shoulder-length hair and glasses on her head in a blue uniform', w: 800, h: 1000, s: 316, k: 'portrait' },
 
   /* --- полезное (статьи) --- */
   'news-1': { p: 'newborn baby checkup, woman pediatrician measuring a baby on a scale in a bright office', w: 640, h: 440, s: 401, k: 'scene' },
