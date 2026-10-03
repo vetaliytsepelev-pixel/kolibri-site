@@ -106,8 +106,7 @@ p { margin: 0 0 1em; }
 .nav__link:hover, .nav__item.is-active > .nav__link { color: var(--p600); }
 .nav__link svg { width: 14px; height: 14px; opacity: .6; }
 .nav__drop {
-  /* 340 px: длинное «Отделение патологии новорождённых и недоношенных детей» — в 2 строки, а не в 3 (03.10.2026) */
-  position: absolute; left: 0; top: 100%; min-width: 340px; background: #fff; border-radius: 16px;
+  position: absolute; left: 0; top: 100%; min-width: 280px; background: #fff; border-radius: 16px;
   box-shadow: var(--shadow-hover); padding: 10px; display: none; z-index: 60;
 }
 .nav__item:hover .nav__drop, .nav__item.is-open .nav__drop { display: block; }
