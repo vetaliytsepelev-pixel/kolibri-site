@@ -309,6 +309,7 @@ window.DIRECTIONS = [
   },
   {
     id: 'logoped',
+    off: true,   // 04.10.2026: клиника ищет логопеда, услуги пока нет. Вернуть — удалить эту строку (и тексты, см. CLAUDE.md)
     title: 'Логопед',
     short: 'Развитие речи, коррекция звукопроизношения, подготовка к школе.',
     photo: 'dir-logoped',
@@ -340,6 +341,8 @@ window.DIRECTIONS = [
     doctors: ['sattarova']
   }
 ];
+// off: true — направление временно не показывается нигде на сайте (меню, страница «Услуги», метки)
+window.DIRECTIONS = window.DIRECTIONS.filter(function (d) { return !d.off; });
 
 /* ---------- УЗИ ---------- */
 window.UZI = [
