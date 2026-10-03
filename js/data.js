@@ -161,7 +161,8 @@ window.DOCTORS = [
     spec: ['Невролог'],
     category: '',
     exp: null,
-    photo: 'doc-nophoto',   // фото пока нет — колибри на фирменном фоне
+    photo: 'doc-dedkova',
+    ava: 'doc-dedkova-ava',   // кружок в карточке: лицо по центру
     text: [
       'Врач-невролог. Ведёт приём детей с рождения.'
     ]
