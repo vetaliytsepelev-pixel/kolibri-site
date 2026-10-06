@@ -191,7 +191,8 @@ window.DOCTORS = [
     spec: ['Медицинская сестра'],
     category: 'Высшая категория',
     exp: null,
-    photo: 'doc-nophoto',   // фото пока нет — колибри на фирменном фоне
+    photo: 'doc-mizinova',
+    ava: 'doc-mizinova-ava',   // кружок в карточке: лицо по центру
     text: [
       'Медицинская сестра высшей категории.'
     ]
@@ -202,7 +203,8 @@ window.DOCTORS = [
     spec: ['Медицинская сестра'],
     category: 'Высшая категория',
     exp: null,
-    photo: 'doc-nophoto',   // фото пока нет — колибри на фирменном фоне
+    photo: 'doc-khomenko',
+    ava: 'doc-khomenko-ava',   // кружок в карточке: лицо по центру
     text: [
       'Медицинская сестра высшей категории.'
     ]
