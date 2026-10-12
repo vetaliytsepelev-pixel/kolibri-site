@@ -313,6 +313,15 @@ p { margin: 0 0 1em; }
 .pl-row__price { font-weight: 700; color: var(--p600); white-space: nowrap; }
 .pl-row[hidden], .pl-group[hidden], .pl-cat[hidden], .pl__found[hidden], .pl__empty[hidden] { display: none; }
 .pl-cat__foot { padding-top: 16px; }
+/* первые 5 услуг раздела, остальные — по кнопке «Ещё … ∨»; при поиске видны все найденные */
+.pl-cat.is-folded .pl-row--more, .pl-cat.is-folded .pl-group--more { display: none; }
+.pl.is-searching .pl-cat.is-folded .pl-row--more:not([hidden]) { display: flex; }
+.pl.is-searching .pl-cat.is-folded .pl-group--more:not([hidden]) { display: block; }
+.pl.is-searching .pl-more { display: none; }
+.pl-more { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; padding: 8px 16px; border: 2px solid var(--l200); border-radius: 999px; background: #fff; color: var(--p700); font: inherit; font-size: 15px; font-weight: 700; cursor: pointer; transition: border-color .2s, background .2s; }
+.pl-more:hover { border-color: var(--p500); background: var(--l100); }
+.pl-more svg { width: 16px; height: 16px; transition: transform .2s; }
+.pl-more.is-open svg { transform: rotate(180deg); }
 @media (max-width: 600px) {
   .pl-cat > summary { flex-wrap: wrap; row-gap: 4px; padding: 16px; }
   .pl-cat__title { font-size: 16px; }

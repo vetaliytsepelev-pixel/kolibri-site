@@ -204,18 +204,24 @@
       '<div class="pl__cats">' + cats.map(function (c) { return '<a class="pl__chip" href="#' + c.id + '">' + esc(c.title) + '</a>'; }).join('') + '</div></div>' +
       '<p class="pl__found" hidden></p>' +
       cats.map(function (c) {
+        // в открытом разделе сначала видны первые SHOW услуг, остальные — по кнопке «Ещё … ∨» (просьба клиента 12.10.2026);
+        // разделы до SHOW + 2 услуг показываются целиком
+        var SHOW = 5, total = c.groups.reduce(function (s, g) { return s + g.items.length; }, 0), fold = total > SHOW + 2;
         var n = 0, min = Infinity;
         var body = c.groups.map(function (g) {
-          return '<div class="pl-group">' + (g.title ? '<h4>' + esc(g.title) + '</h4>' : '') + g.items.map(function (it) {
+          var hiddenGroup = fold && n >= SHOW;
+          return '<div class="pl-group' + (hiddenGroup ? ' pl-group--more' : '') + '">' + (g.title ? '<h4>' + esc(g.title) + '</h4>' : '') + g.items.map(function (it) {
+            var more = fold && n >= SHOW;
             n++; if (it[1] < min) min = it[1];
             // ищем по разделу, названию и пояснению (без подраздела: «Сердце и сосуды» иначе находило бы все сосуды по «сердца»)
-            return '<div class="pl-row" data-q="' + esc(norm(c.title + ' ' + it[0] + ' ' + (it[2] || '') + ' ' + (it[3] || ''))) + '">' +
+            return '<div class="pl-row' + (more ? ' pl-row--more' : '') + '" data-q="' + esc(norm(c.title + ' ' + it[0] + ' ' + (it[2] || '') + ' ' + (it[3] || ''))) + '">' +
               '<div class="pl-row__name">' + esc(it[0]) + (it[2] ? '<small>' + esc(it[2]) + '</small>' : '') + '</div><div class="pl-row__price">' + money(it[1]) + '</div></div>';
           }).join('') + '</div>';
         }).join('');
-        return '<details class="pl-cat" id="' + c.id + '"><summary><span class="pl-cat__title">' + esc(c.title) + '</span>' +
+        var moreBtn = fold ? '<button type="button" class="pl-more" data-rest="' + (total - SHOW) + '">' + 'Ещё ' + plural(total - SHOW, 'услуга', 'услуги', 'услуг') + I.chevD + '</button>' : '';
+        return '<details class="pl-cat' + (fold ? ' is-folded' : '') + '" id="' + c.id + '"><summary><span class="pl-cat__title">' + esc(c.title) + '</span>' +
           '<span class="pl-cat__meta">' + plural(n, 'услуга', 'услуги', 'услуг') + ' · от ' + money(min) + '</span></summary>' +
-          '<div class="pl-cat__body">' + (c.note ? '<p class="pl-cat__note">' + esc(c.note) + '</p>' : '') + body +
+          '<div class="pl-cat__body">' + (c.note ? '<p class="pl-cat__note">' + esc(c.note) + '</p>' : '') + body + moreBtn +
           '<div class="pl-cat__foot"><a href="#" class="btn btn--primary btn--sm" data-book>Записаться</a></div></div></details>';
       }).join('') +
       '<p class="pl__empty" hidden>Ничего не нашлось. Позвоните нам: <a href="' + C.phoneHref + '"><b>' + esc(C.phone) + '</b></a> — администратор подскажет.</p></div>';
@@ -238,6 +244,17 @@
       });
       found.hidden = !words.length || !total; found.textContent = 'Найдено: ' + plural(total, 'услуга', 'услуги', 'услуг');
       empty.hidden = !words.length || total > 0;
+      pl.classList.toggle('is-searching', words.length > 0);   // при поиске видны все найденные, кнопки «Ещё» скрыты
+    });
+    // «Ещё … ∨» / «Свернуть ∧»
+    var pl = el.querySelector('.pl');
+    pl.addEventListener('click', function (e) {
+      var b = e.target.closest('.pl-more'); if (!b) return;
+      var d = b.closest('.pl-cat'), folded = d.classList.toggle('is-folded');
+      b.innerHTML = folded ? 'Ещё ' + plural(+b.dataset.rest, 'услуга', 'услуги', 'услуг') + I.chevD : 'Свернуть' + I.chevD;
+      b.classList.toggle('is-open', !folded);
+      // свернули длинный раздел, прокрутив его вниз, — возвращаемся к его началу
+      if (folded && d.getBoundingClientRect().top < 0) d.scrollIntoView({ block: 'start' });
     });
     function openCat(id, scroll) {
       var d = document.getElementById(id); if (!d || !d.classList.contains('pl-cat')) return;
