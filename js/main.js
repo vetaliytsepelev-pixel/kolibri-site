@@ -122,6 +122,7 @@
       '<label class="form__hp" aria-hidden="true">Сайт<input name="website" tabindex="-1" autocomplete="off"></label>' +
       '<label>Ваше имя<input name="name" required maxlength="80" autocomplete="name" placeholder="Как к вам обращаться"></label>' +
       '<label>Телефон<input name="phone" type="tel" required maxlength="30" autocomplete="tel" placeholder="+7 (___) ___-__-__"></label>' +
+      '<label>E-mail<input name="email" type="email" required maxlength="120" autocomplete="email" inputmode="email" placeholder="name@mail.ru"></label>' +
       '<label>Врач или услуга<select name="doctor"><option value="">Подобрать врача</option>' + opts + '</select></label>' +
       '<label>Комментарий<textarea name="comment" rows="3" maxlength="1000" placeholder="' + COMMENT_HINT + '"></textarea></label>' +
       '<small class="form__hint">Пожалуйста, не указывайте сведения о здоровье ребёнка — врач уточнит всё на приёме.</small>' +
@@ -396,6 +397,7 @@
       var el = form.elements;
       if (!el['name'].value.trim()) { showErr('Напишите, пожалуйста, как к вам обращаться.'); el['name'].focus(); return; }
       if (el['phone'].value.replace(/\D/g, '').length < 10) { showErr('Проверьте номер телефона — нужно не меньше 10 цифр.'); el['phone'].focus(); return; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(el['email'].value.trim())) { showErr('Проверьте e-mail — например, name@mail.ru.'); el['email'].focus(); return; }
       if (!el['consent'].checked) { showErr('Чтобы отправить заявку, отметьте согласие на обработку персональных данных.'); el['consent'].focus(); return; }
       if (!C.formEndpoint) { done(); return; }
       var btn = form.querySelector('button[type=submit]'), label = btn.textContent;
