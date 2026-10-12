@@ -287,6 +287,42 @@ p { margin: 0 0 1em; }
 .price-table td:last-child, .price-table th:last-child { text-align: right; white-space: nowrap; font-weight: 700; color: var(--p600); }
 .price-table tr:last-child td { border-bottom: 0; }
 
+/* Прайс-лист (ceny.html, 12.10.2026): поиск, кнопки разделов, разделы-«гармошки» */
+.pl__tools { display: grid; gap: 14px; margin-bottom: 18px; }
+.pl__search { display: flex; align-items: center; gap: 10px; max-width: 640px; padding: 0 18px; background: #fff; border: 2px solid var(--l200); border-radius: 999px; box-shadow: var(--shadow); cursor: text; }
+.pl__search:focus-within { border-color: var(--p500); }
+.pl__search svg { width: 20px; height: 20px; color: var(--p600); flex-shrink: 0; }
+.pl__search input { width: 100%; padding: 14px 0; border: 0; outline: 0; background: transparent; font: inherit; font-size: 16px; color: var(--ink); }
+.pl__cats { display: flex; flex-wrap: wrap; gap: 8px; }
+.pl__chip { padding: 7px 14px; border-radius: 999px; background: var(--l100); color: var(--p800); font-size: 14px; font-weight: 600; transition: background .2s, color .2s; }
+.pl__chip:hover { background: var(--p600); color: #fff; }
+.pl__found { margin: 0 0 12px; color: var(--muted); font-size: 15px; }
+.pl__empty { padding: 18px 22px; background: #fff; border-radius: var(--radius-sm); box-shadow: var(--shadow); }
+.pl-cat { margin-bottom: 12px; background: #fff; border-radius: var(--radius-sm); box-shadow: var(--shadow); scroll-margin-top: 140px; }
+.pl-cat > summary { display: flex; align-items: center; gap: 12px; padding: 18px 22px; list-style: none; cursor: pointer; }
+.pl-cat > summary::-webkit-details-marker { display: none; }
+.pl-cat > summary::after { content: ''; flex-shrink: 0; width: 9px; height: 9px; margin: 0 4px 4px 4px; border-right: 2px solid var(--p600); border-bottom: 2px solid var(--p600); transform: rotate(45deg); transition: transform .2s; }
+.pl-cat[open] > summary::after { margin: 4px 4px 0 4px; transform: rotate(-135deg); }
+.pl-cat__title { flex: 1; font-family: var(--font-head); font-size: 18px; font-weight: 700; color: var(--p900); }
+.pl-cat__meta { color: var(--muted); font-size: 14px; white-space: nowrap; }
+.pl-cat__body { padding: 0 22px 20px; }
+.pl-cat__note { margin: 0 0 6px; color: var(--muted); font-size: 14px; }
+.pl-group h4 { margin: 16px 0 2px; font-family: var(--font-head); font-size: 15px; color: var(--p700); }
+.pl-row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--l200); }
+.pl-row__name small { display: block; margin-top: 2px; color: var(--muted); font-size: 13.5px; line-height: 1.4; }
+.pl-row__price { font-weight: 700; color: var(--p600); white-space: nowrap; }
+.pl-row[hidden], .pl-group[hidden], .pl-cat[hidden], .pl__found[hidden], .pl__empty[hidden] { display: none; }
+.pl-cat__foot { padding-top: 16px; }
+@media (max-width: 600px) {
+  .pl-cat > summary { flex-wrap: wrap; row-gap: 4px; padding: 16px; }
+  .pl-cat__title { font-size: 16px; }
+  .pl-cat > summary::after { order: 2; }
+  .pl-cat__meta { order: 3; width: 100%; }
+  .pl-cat__body { padding: 0 16px 16px; }
+  .pl__cats { flex-wrap: nowrap; overflow-x: auto; margin: 0 -16px; padding: 0 16px 4px; scrollbar-width: none; }
+  .pl__chip { flex-shrink: 0; }
+}
+
 /* ---------- Новости / полезное ---------- */
 .news { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 .news-card { background: #fff; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column; color: var(--ink); transition: .25s; }

@@ -191,10 +191,65 @@
     }).join('');
   }
 
+  /* Прайс-лист (ceny.html): поиск по услугам, кнопки разделов и разделы-«гармошки». Данные — PRICES в data.js,
+     последний раздел собирается из PACKAGES. Ссылка ceny.html#p-uzi сразу открывает нужный раздел. */
+  function plural(n, one, few, many) { var m = n % 10, d = n % 100; return n + ' ' + (d >= 11 && d <= 14 ? many : m === 1 ? one : m >= 2 && m <= 4 ? few : many); }
+  // для поиска: строчные, ё → е, всё кроме букв и цифр — пробел (чтобы «(ЛОР)» и «ЛОР-органов» находились по «лор»)
+  function norm(s) { return ' ' + String(s).toLowerCase().replace(/ё/g, 'е').replace(/[^a-zа-я0-9]+/g, ' ').trim() + ' '; }
+  var SEARCH_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>';
   function renderPriceTable(el) {
-    el.innerHTML = '<table class="price-table"><thead><tr><th>Услуга</th><th>Стоимость</th></tr></thead><tbody>' +
-      window.PACKAGES.map(function (p) { return '<tr><td>' + esc(p.name) + (p.note ? '<div class="muted" style="font-size:14px">' + esc(p.note) + '</div>' : '') + '</td><td>' + money(p.price) + '</td></tr>'; }).join('') +
-      '</tbody></table>';
+    var cats = (window.PRICES || []).concat([{ id: 'p-pakety', title: 'Программы и пакеты', groups: [{ items: window.PACKAGES.map(function (p) { return [p.name, p.price, p.note]; }) }] }]);
+    el.innerHTML = '<div class="pl">' +
+      '<div class="pl__tools"><label class="pl__search">' + SEARCH_ICON + '<input type="search" placeholder="Найти услугу, например «УЗИ почек» или «гипс»" aria-label="Поиск по прайсу" autocomplete="off"></label>' +
+      '<div class="pl__cats">' + cats.map(function (c) { return '<a class="pl__chip" href="#' + c.id + '">' + esc(c.title) + '</a>'; }).join('') + '</div></div>' +
+      '<p class="pl__found" hidden></p>' +
+      cats.map(function (c) {
+        var n = 0, min = Infinity;
+        var body = c.groups.map(function (g) {
+          return '<div class="pl-group">' + (g.title ? '<h4>' + esc(g.title) + '</h4>' : '') + g.items.map(function (it) {
+            n++; if (it[1] < min) min = it[1];
+            // ищем по разделу, названию и пояснению (без подраздела: «Сердце и сосуды» иначе находило бы все сосуды по «сердца»)
+            return '<div class="pl-row" data-q="' + esc(norm(c.title + ' ' + it[0] + ' ' + (it[2] || '') + ' ' + (it[3] || ''))) + '">' +
+              '<div class="pl-row__name">' + esc(it[0]) + (it[2] ? '<small>' + esc(it[2]) + '</small>' : '') + '</div><div class="pl-row__price">' + money(it[1]) + '</div></div>';
+          }).join('') + '</div>';
+        }).join('');
+        return '<details class="pl-cat" id="' + c.id + '"><summary><span class="pl-cat__title">' + esc(c.title) + '</span>' +
+          '<span class="pl-cat__meta">' + plural(n, 'услуга', 'услуги', 'услуг') + ' · от ' + money(min) + '</span></summary>' +
+          '<div class="pl-cat__body">' + (c.note ? '<p class="pl-cat__note">' + esc(c.note) + '</p>' : '') + body +
+          '<div class="pl-cat__foot"><a href="#" class="btn btn--primary btn--sm" data-book>Записаться</a></div></div></details>';
+      }).join('') +
+      '<p class="pl__empty" hidden>Ничего не нашлось. Позвоните нам: <a href="' + C.phoneHref + '"><b>' + esc(C.phone) + '</b></a> — администратор подскажет.</p></div>';
+
+    var input = el.querySelector('.pl__search input'), found = el.querySelector('.pl__found'), empty = el.querySelector('.pl__empty');
+    var blocks = [].slice.call(el.querySelectorAll('.pl-cat'));
+    // поиск по началу слов: «почек» найдёт «почки», «сердца» — «сердце» (у длинных слов отбрасываем окончание),
+    // «лор» не найдёт «пилорический»
+    input.addEventListener('input', function () {
+      var words = norm(input.value).split(' ').filter(Boolean).map(function (w) { return ' ' + (w.length > 4 ? w.slice(0, Math.max(3, w.length - 2)) : w); });
+      var total = 0;
+      blocks.forEach(function (d) {
+        var cnt = 0;
+        [].forEach.call(d.querySelectorAll('.pl-group'), function (g) {
+          var gc = 0;
+          [].forEach.call(g.querySelectorAll('.pl-row'), function (r) { var ok = words.every(function (w) { return r.dataset.q.indexOf(w) >= 0; }); r.hidden = !ok; if (ok) gc++; });
+          g.hidden = gc === 0; cnt += gc;
+        });
+        d.hidden = cnt === 0; d.open = words.length > 0 && cnt > 0; total += cnt;
+      });
+      found.hidden = !words.length || !total; found.textContent = 'Найдено: ' + plural(total, 'услуга', 'услуги', 'услуг');
+      empty.hidden = !words.length || total > 0;
+    });
+    function openCat(id, scroll) {
+      var d = document.getElementById(id); if (!d || !d.classList.contains('pl-cat')) return;
+      if (input.value) { input.value = ''; input.dispatchEvent(new Event('input')); }
+      d.open = true; if (scroll) d.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    el.querySelector('.pl__cats').addEventListener('click', function (e) {
+      var a = e.target.closest('a'); if (!a) return; e.preventDefault();
+      var id = a.getAttribute('href').slice(1); openCat(id, true); history.replaceState(null, '', '#' + id);
+    });
+    if (location.hash) setTimeout(function () { openCat(location.hash.slice(1), true); }, 50);
+    window.addEventListener('hashchange', function () { openCat(location.hash.slice(1), true); });
   }
 
   function renderNews(el) {
@@ -277,7 +332,9 @@
       return '<div class="dir" id="' + d.id + '"><div class="dir__bg">' + ico + '</div><div class="dir__icon">' + ico + '</div>' +
         '<h3>' + esc(d.title) + '</h3><p>' + esc(d.short) + '</p><ul>' + d.list.map(function (l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul>' +
         (docs ? '<div class="dir__doctors">Специалисты: ' + docs + '</div>' : '<div class="dir__doctors">Специалист ведёт приём по записи</div>') +
-        '<div class="dir__actions"><a href="#" class="btn btn--primary btn--sm" data-book>Записаться</a>' + (d.link ? '<a href="' + d.link + '" class="btn btn--outline btn--sm">Подробнее</a>' : '') + '</div></div>';
+        '<div class="dir__actions"><a href="#" class="btn btn--primary btn--sm" data-book>Записаться</a>' +
+        ((window.PRICES_FOR_DIRECTION || {})[d.id] ? '<a href="ceny.html#' + window.PRICES_FOR_DIRECTION[d.id] + '" class="btn btn--outline btn--sm">Цены</a>' : '') +
+        (d.link ? '<a href="' + d.link + '" class="btn btn--outline btn--sm">Подробнее</a>' : '') + '</div></div>';
     }).join('');
   }
 
