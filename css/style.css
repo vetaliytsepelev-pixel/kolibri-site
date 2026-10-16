@@ -310,6 +310,7 @@ p { margin: 0 0 1em; }
 .pl-group h4 { margin: 16px 0 2px; font-family: var(--font-head); font-size: 15px; color: var(--p700); }
 .pl-row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--l200); }
 .pl-row__name small { display: block; margin-top: 2px; color: var(--muted); font-size: 13.5px; line-height: 1.4; }
+.pl-row__code { display: block; margin-top: 2px; color: var(--muted); font-size: 12px; letter-spacing: .02em; opacity: .85; }
 .pl-row__price { font-weight: 700; color: var(--p600); white-space: nowrap; }
 .pl-row[hidden], .pl-group[hidden], .pl-cat[hidden], .pl__found[hidden], .pl__empty[hidden] { display: none; }
 .pl-cat__foot { padding-top: 16px; }

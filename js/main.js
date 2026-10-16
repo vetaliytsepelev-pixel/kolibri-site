@@ -198,7 +198,7 @@
   function norm(s) { return ' ' + String(s).toLowerCase().replace(/ё/g, 'е').replace(/[^a-zа-я0-9]+/g, ' ').trim() + ' '; }
   var SEARCH_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>';
   function renderPriceTable(el) {
-    var cats = (window.PRICES || []).concat([{ id: 'p-pakety', title: 'Программы и пакеты', groups: [{ items: window.PACKAGES.map(function (p) { return [p.name, p.price, p.note]; }) }] }]);
+    var cats = (window.PRICES || []).concat([{ id: 'p-pakety', title: 'Программы и пакеты', groups: [{ items: window.PACKAGES.map(function (p) { return [p.name, p.price, p.note, '', p.code]; }) }] }]);
     el.innerHTML = '<div class="pl">' +
       '<div class="pl__tools"><label class="pl__search">' + SEARCH_ICON + '<input type="search" placeholder="Найти услугу, например «УЗИ почек» или «гипс»" aria-label="Поиск по прайсу" autocomplete="off"></label>' +
       '<div class="pl__cats">' + cats.map(function (c) { return '<a class="pl__chip" href="#' + c.id + '">' + esc(c.title) + '</a>'; }).join('') + '</div></div>' +
@@ -213,9 +213,11 @@
           return '<div class="pl-group' + (hiddenGroup ? ' pl-group--more' : '') + '">' + (g.title ? '<h4>' + esc(g.title) + '</h4>' : '') + g.items.map(function (it) {
             var more = fold && n >= SHOW;
             n++; if (it[1] < min) min = it[1];
-            // ищем по разделу, названию и пояснению (без подраздела: «Сердце и сосуды» иначе находило бы все сосуды по «сердца»)
-            return '<div class="pl-row' + (more ? ' pl-row--more' : '') + '" data-q="' + esc(norm(c.title + ' ' + it[0] + ' ' + (it[2] || '') + ' ' + (it[3] || ''))) + '">' +
-              '<div class="pl-row__name">' + esc(it[0]) + (it[2] ? '<small>' + esc(it[2]) + '</small>' : '') + '</div><div class="pl-row__price">' + money(it[1]) + '</div></div>';
+            // ищем по разделу, названию, пояснению и коду (без подраздела: «Сердце и сосуды» иначе находило бы все сосуды по «сердца»)
+            // it[4] — код услуги по номенклатуре (из прейскуранта клиники), несколько кодов — через запятую
+            var code = it[4] ? '<span class="pl-row__code">' + (it[4].indexOf(',') > 0 ? 'Коды: ' : 'Код: ') + esc(it[4]) + '</span>' : '';
+            return '<div class="pl-row' + (more ? ' pl-row--more' : '') + '" data-q="' + esc(norm(c.title + ' ' + it[0] + ' ' + (it[2] || '') + ' ' + (it[3] || '') + ' ' + (it[4] || ''))) + '">' +
+              '<div class="pl-row__name">' + esc(it[0]) + (it[2] ? '<small>' + esc(it[2]) + '</small>' : '') + code + '</div><div class="pl-row__price">' + money(it[1]) + '</div></div>';
           }).join('') + '</div>';
         }).join('');
         var moreBtn = fold ? '<button type="button" class="pl-more" data-rest="' + (total - SHOW) + '">' + 'Ещё ' + plural(total - SHOW, 'услуга', 'услуги', 'услуг') + I.chevD + '</button>' : '';
