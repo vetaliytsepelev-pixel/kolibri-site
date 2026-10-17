@@ -626,3 +626,70 @@ p { margin: 0 0 1em; }
 @media (max-width: 640px) { .doc-page { padding: 24px 18px; } }
 
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- Поиск по сайту и версия для слабовидящих (кнопки в меню) ---------- */
+.nav__item--tool { display: flex; align-items: center; }
+.nav__item--tool:nth-last-child(2) { margin-left: auto; }
+.nav__tool { display: inline-flex; align-items: center; gap: 6px; padding: 8px 12px; border: 1px solid var(--l200); border-radius: 10px; background: #fff;
+  color: var(--p700); font: 600 15px var(--font-body); cursor: pointer; }
+.nav__tool:hover { background: var(--l100); color: var(--p600); }
+.nav__tool svg { width: 18px; height: 18px; flex: none; }
+.nav__tool-label { display: none; }
+@media (max-width: 960px) {
+  .nav__item--tool:nth-last-child(2) { margin-left: 0; }
+  .nav__item--tool { padding: 6px 0; }
+  .nav__tool { width: 100%; padding: 12px; font-size: 17px; }
+  .nav__tool-label { display: inline; }
+}
+.modal--top { align-items: flex-start; padding-top: 6vh; }
+.search-box .pl__search { margin: 14px 0 8px; }
+.search-results { display: grid; gap: 4px; max-height: 60vh; overflow: auto; }
+.search-hit { display: block; padding: 10px 12px; border-radius: 12px; color: var(--ink); }
+.search-hit:hover, .search-hit:focus { background: var(--l100); }
+.search-hit b { display: block; font-weight: 700; color: var(--p900); }
+.search-hit small { display: block; color: var(--muted); font-size: 13.5px; }
+
+/* ---------- Страница «Пациентам» ---------- */
+.doc-toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 8px; }
+.doc-toc a { padding: 6px 12px; border-radius: 999px; background: var(--l100); color: var(--p700); font-size: 14px; font-weight: 600; }
+.doc-toc a:hover { background: var(--l200); }
+.doc-page h2[id] { scroll-margin-top: 140px; }
+.doc-page h3 { font-size: 17px; margin: 18px 0 8px; color: var(--p900); }
+.org-cards { display: grid; gap: 14px; margin: 16px 0 8px; }
+.org-card { border: 1px solid var(--l200); border-radius: var(--radius-sm); padding: 16px 20px; }
+.org-card h3 { margin: 0 0 8px; font-size: 17px; }
+.org-card p { margin: 0 0 8px; font-size: 15px; }
+.org-card p:last-child { margin-bottom: 0; }
+
+/* ---------- Версия для слабовидящих ----------
+   Масштаб — zoom страницы; цвета — три контрастные схемы поверх всех цветов сайта; «без изображений» прячет фото. */
+.a11y-bar { position: relative; z-index: 60; background: #fff; border-bottom: 3px solid #000; color: #000; font-family: Arial, sans-serif; }
+.a11y-bar__in { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; padding-top: 10px; padding-bottom: 10px; }
+.a11y-bar__group { display: flex; align-items: center; gap: 6px; }
+.a11y-bar__group span { font-weight: 700; margin-right: 4px; }
+.a11y-bar button { min-width: 44px; min-height: 40px; padding: 4px 10px; border: 2px solid #000; border-radius: 8px; background: #fff; color: #000; font: 700 16px Arial, sans-serif; cursor: pointer; }
+.a11y-bar button[aria-pressed="true"] { outline: 3px solid #e00; outline-offset: 1px; }
+.a11y-bar .sw-bw { background: #fff !important; color: #000 !important; }
+.a11y-bar .sw-wb { background: #000 !important; color: #fff !important; }
+.a11y-bar .sw-blue { background: #9dd1ff !important; color: #063462 !important; }
+.a11y-bar__off { margin-left: auto; }
+html.a11y-z2 body { zoom: 1.2; }
+html.a11y-z3 body { zoom: 1.45; }
+html.a11y-ls body p, html.a11y-ls body li, html.a11y-ls body a, html.a11y-ls body h1, html.a11y-ls body h2, html.a11y-ls body h3,
+html.a11y-ls body h4, html.a11y-ls body span, html.a11y-ls body small, html.a11y-ls body label, html.a11y-ls body summary { letter-spacing: .08em !important; word-spacing: .16em !important; }
+html.a11y-noimg img, html.a11y-noimg .ph { display: none !important; }
+html.a11y-c-bw body, html.a11y-c-bw body *:not(.a11y-bar *):not(img) { background: #fff !important; color: #000 !important; border-color: #000 !important; box-shadow: none !important; text-shadow: none !important; }
+html.a11y-c-wb body, html.a11y-c-wb body *:not(.a11y-bar *):not(img) { background: #000 !important; color: #fff !important; border-color: #fff !important; box-shadow: none !important; text-shadow: none !important; }
+html.a11y-c-wb body a:not(.btn):not(.a11y-bar *) { color: #ff0 !important; }
+html.a11y-c-blue body, html.a11y-c-blue body *:not(.a11y-bar *):not(img) { background: #9dd1ff !important; color: #063462 !important; border-color: #063462 !important; box-shadow: none !important; text-shadow: none !important; }
+html[class*="a11y-c-"] .btn, html[class*="a11y-c-"] .nav__tool, html[class*="a11y-c-"] .pl-more { border: 2px solid currentColor !important; }
+html[class*="a11y-c-"] a { text-decoration: underline; }
+html[class*="a11y-c-"] body div.modal:not(.a11y-bar *) { background: rgba(0,0,0,.6) !important; }
+/* на узких компьютерах (961–1150 px) меню с «Пациентам» и двумя кнопками иначе переносится на вторую строку */
+@media (min-width: 961px) and (max-width: 1150px) {
+  .nav__link { padding: 14px 9px; font-size: 14.5px; }
+  .nav__tool { padding: 8px 9px; }
+  .nav__tool-text { display: none; }
+}
+/* градиенты и подложки баннеров нарисованы псевдоэлементами — в контрастных схемах их убираем */
+html[class*="a11y-c-"] body *:not(.a11y-bar *)::before, html[class*="a11y-c-"] body *:not(.a11y-bar *)::after { background: none !important; box-shadow: none !important; }

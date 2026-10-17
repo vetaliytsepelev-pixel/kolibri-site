@@ -23,7 +23,9 @@
     close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>',
     menu: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
     check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>',
-    wave: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12c2-4 4-4 6 0s4 4 6 0 4-4 6 0"/></svg>'
+    wave: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12c2-4 4-4 6 0s4 4 6 0 4-4 6 0"/></svg>',
+    search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>',
+    eye: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>'
   };
   window.ICONS = I;
 
@@ -42,9 +44,13 @@
     { t: 'УЗИ', h: 'uzi.html' },
     { t: 'Программы и цены', h: 'ceny.html' },
     { t: 'О клинике', h: 'o-klinike.html' },
+    { t: 'Пациентам', h: 'pacientam.html' },
     { t: 'Полезное', h: 'poleznoe.html' },
     { t: 'Контакты', h: 'kontakty.html' }
   ];
+  // поиск по сайту и версия для слабовидящих — кнопки в конце меню (на телефоне — в «бургере»)
+  var NAV_TOOLS = '<li class="nav__item nav__item--tool"><button class="nav__tool" type="button" data-search>' + I.search + '<span class="nav__tool-text">Поиск</span></button></li>' +
+    '<li class="nav__item nav__item--tool"><button class="nav__tool" type="button" data-a11y title="Версия для слабовидящих" aria-label="Версия для слабовидящих">' + I.eye + '<span class="nav__tool-label">Версия для слабовидящих</span></button></li>';
 
   function renderHeader() {
     var items = NAV.map(function (n) {
@@ -63,7 +69,7 @@
       '<a class="btn btn--primary btn--book" href="#" data-book>Записаться</a>' +
       '<button class="header__burger" type="button" aria-label="Меню">' + I.menu + '</button>' +
       '</div>' +
-      '<nav class="nav"><ul class="nav__list">' + items + '</ul></nav>' +
+      '<nav class="nav"><ul class="nav__list">' + items + NAV_TOOLS + '</ul></nav>' +
       '</div></header>';
   }
 
@@ -75,7 +81,7 @@
       '<div><a class="footer__logo" href="index.html"><img src="img/logo-full.png" alt="' + esc(C.name) + '"></a>' +
       '<p>Детская клиника в Симферопольском районе: педиатрия и неонатология, сопровождение недоношенных детей, УЗИ экспертного класса пациентам от 0 до 99 лет, вакцинация с рождения.</p>' +
       social() + '</div>' +
-      '<div><h4>Пациентам</h4><ul><li><a href="vrachi.html">Врачи</a></li><li><a href="uslugi.html">Услуги</a></li><li><a href="uzi.html">УЗИ-диагностика</a></li><li><a href="ceny.html">Программы и цены</a></li><li><a href="poleznoe.html">Полезное</a></li></ul></div>' +
+      '<div><h4>Пациентам</h4><ul><li><a href="pacientam.html">Информация для пациентов</a></li><li><a href="vrachi.html">Врачи</a></li><li><a href="uslugi.html">Услуги</a></li><li><a href="uzi.html">УЗИ-диагностика</a></li><li><a href="ceny.html">Программы и цены</a></li><li><a href="poleznoe.html">Полезное</a></li></ul></div>' +
       '<div><h4>Клиника</h4><ul><li><a href="o-klinike.html">О клинике</a></li><li><a href="index.html#reviews">Отзывы</a></li><li><a href="o-klinike.html#docs">Документы и лицензии</a></li><li><a href="kontakty.html">Контакты</a></li></ul></div>' +
       '<div><h4>Контакты</h4><p>' + esc(C.addressFull) + '</p><p><a href="' + C.phoneHref + '"><b>' + esc(C.phone) + '</b></a><br><a href="mailto:' + C.email + '">' + C.email + '</a></p><div class="hours">' + hours + '</div></div>' +
       '</div>' +
@@ -130,7 +136,109 @@
       '<div class="form__err" hidden></div>' +
       '<button class="btn btn--primary btn--block" type="submit">Отправить заявку</button>' +
       '</form></div></div>' +
-      '<div class="modal" id="modal-doctor"><div class="modal__box modal__box--wide"><button class="modal__close" type="button" data-close aria-label="Закрыть">' + I.close + '</button><div id="doctor-body"></div></div></div>';
+      '<div class="modal" id="modal-doctor"><div class="modal__box modal__box--wide"><button class="modal__close" type="button" data-close aria-label="Закрыть">' + I.close + '</button><div id="doctor-body"></div></div></div>' +
+      '<div class="modal modal--top" id="modal-search"><div class="modal__box modal__box--wide search-box"><button class="modal__close" type="button" data-close aria-label="Закрыть">' + I.close + '</button>' +
+      '<h2 style="font-size:24px">Поиск по сайту</h2>' +
+      '<label class="pl__search">' + I.search + '<input type="search" id="site-search" placeholder="Врач, услуга, цена или вопрос — например «УЗИ сердца»" aria-label="Поиск по сайту" autocomplete="off"></label>' +
+      '<div class="search-results" id="site-search-results"></div></div></div>';
+  }
+
+  /* ---------- Поиск по сайту ----------
+     Ищет по страницам, врачам, направлениям, УЗИ, ценам (вместе с кодами услуг) и статьям из data.js — без сервера.
+     Слова ищутся по началу, как в прайсе: «почек» найдёт «почки». Цена открывается на «Ценах» с готовым поиском (?q=). */
+  var SEARCH_PAGES = [
+    ['Главная', 'index.html', 'детская клиника колибри мирное'],
+    ['Врачи', 'vrachi.html', 'врачи специалисты доктор'],
+    ['Услуги', 'uslugi.html', 'направления услуги'],
+    ['УЗИ-диагностика', 'uzi.html', 'узи ультразвуковая диагностика'],
+    ['Программы и цены', 'ceny.html', 'цены прайс прейскурант стоимость программы наблюдения пакеты'],
+    ['О клинике', 'o-klinike.html', 'о клинике фото галерея'],
+    ['Документы и лицензия', 'o-klinike.html#docs', 'лицензия документы инн огрнип реквизиты'],
+    ['Информация для пациентов', 'pacientam.html', 'пациентам'],
+    ['Права и обязанности пациента', 'pacientam.html#prava', 'права пациента обязанности 323 фз закон'],
+    ['Куда обратиться с вопросом или жалобой', 'pacientam.html#obrashcheniya', 'жалоба обращение минздрав росздравнадзор роспотребнадзор контролирующие органы'],
+    ['Бесплатная помощь: программа госгарантий', 'pacientam.html#gosgarantii', 'омс полис бесплатно программа государственных гарантий территориальная'],
+    ['Лекарственное обеспечение', 'pacientam.html#lekarstva', 'лекарства льготные жнвлп рецепт препараты'],
+    ['Стандарты и клинические рекомендации', 'pacientam.html#standarty', 'клинические рекомендации стандарты медицинской помощи'],
+    ['Полезное: статьи для родителей', 'poleznoe.html', 'статьи советы полезное'],
+    ['Контакты', 'kontakty.html', 'адрес телефон часы режим работы как доехать карта'],
+    ['Политика конфиденциальности', 'politika.html', 'персональные данные'],
+    ['Согласие на обработку персональных данных', 'soglasie.html', 'персональные данные согласие']
+  ];
+  var searchIndex = null;
+  function qnorm(s) { return ' ' + String(s || '').toLowerCase().replace(/ё/g, 'е').replace(/[^a-zа-я0-9]+/g, ' ').trim() + ' '; }
+  function buildSearchIndex() {
+    var list = [];
+    function add(t, s, u, extra, rank) { list.push({ t: t, s: s, u: u, q: qnorm(t + ' ' + (extra || '')), tq: qnorm(t), r: rank }); }
+    SEARCH_PAGES.forEach(function (p) { add(p[0], 'Раздел сайта', p[1], p[2], 0); });
+    window.DOCTORS.forEach(function (d) { if (!d.staff) add(d.name, d.spec.join(', '), 'vrachi.html#doc-' + d.id, d.spec.join(' ') + ' ' + (d.category || ''), 1); });
+    window.DIRECTIONS.forEach(function (d) { add(d.title, 'Направление', 'uslugi.html#' + d.id, (d.short || '') + ' ' + (d.list || []).join(' '), 2); });
+    (window.UZI || []).forEach(function (u) { add(u.title, 'УЗИ', 'uzi.html', u.text, 3); });
+    var priceLink = function (name) { return 'ceny.html?q=' + encodeURIComponent(name) + '#prais'; };
+    (window.PRICES || []).forEach(function (c) {
+      c.groups.forEach(function (g) { g.items.forEach(function (it) { add(it[0], money(it[1]) + ' · ' + c.title, priceLink(it[0]), c.title + ' ' + (it[2] || '') + ' ' + (it[3] || '') + ' ' + (it[4] || ''), 4); }); });
+    });
+    window.PACKAGES.forEach(function (p) { add(p.name, money(p.price) + ' · Программы и пакеты', priceLink(p.name), (p.note || '') + ' ' + (p.code || ''), 4); });
+    (window.ARTICLES || []).forEach(function (a) { add(a.title, 'Статья', 'poleznoe.html#' + a.id, (a.tags || []).join(' '), 5); });
+    return list;
+  }
+  function runSearch(value) {
+    var box = document.getElementById('site-search-results');
+    var words = qnorm(value).split(' ').filter(Boolean).map(function (w) { return ' ' + (w.length > 4 ? w.slice(0, Math.max(3, w.length - 2)) : w); });
+    if (!words.length) { box.innerHTML = '<p class="muted">Начните вводить — например, фамилию врача, «прививки», «ЛОР» или «цены УЗИ».</p>'; return; }
+    searchIndex = searchIndex || buildSearchIndex();
+    var found = searchIndex.filter(function (x) { return words.every(function (w) { return x.q.indexOf(w) >= 0; }); })
+      .map(function (x) { return { x: x, score: words.filter(function (w) { return x.tq.indexOf(w) >= 0; }).length * 10 - x.r }; })
+      .sort(function (a, b) { return b.score - a.score; }).slice(0, 25);
+    box.innerHTML = found.length ? found.map(function (f) { return '<a class="search-hit" href="' + f.x.u + '"><b>' + esc(f.x.t) + '</b><small>' + esc(f.x.s) + '</small></a>'; }).join('') +
+      (found.length === 25 ? '<p class="muted">Показаны первые 25 результатов — уточните запрос.</p>' : '')
+      : '<p class="muted">Ничего не нашлось. Позвоните нам: <a href="' + C.phoneHref + '"><b>' + esc(C.phone) + '</b></a> — администратор подскажет.</p>';
+  }
+  function openSearch() {
+    openModal('modal-search');
+    var input = document.getElementById('site-search');
+    runSearch(input.value);
+    setTimeout(function () { input.focus(); }, 50);
+  }
+
+  /* ---------- Версия для слабовидящих ----------
+     Кнопка с глазом в меню включает панель настроек: размер шрифта (масштаб страницы), цвета (чёрным по белому,
+     белым по чёрному, тёмно-синим по голубому), межбуквенный интервал, изображения. Настройки запоминаются в браузере. */
+  var A11Y_KEY = 'kolibri-a11y';
+  var a11y = (function () { try { return JSON.parse(localStorage.getItem(A11Y_KEY)) || {}; } catch (e) { return {}; } })();
+  function saveA11y() { try { localStorage.setItem(A11Y_KEY, JSON.stringify(a11y)); } catch (e) { /* приватный режим — просто не запоминаем */ } }
+  function applyA11y() {
+    var h = document.documentElement;
+    h.className = h.className.replace(/\ba11y[\w-]*\b/g, '').trim();
+    var bar = document.querySelector('.a11y-bar');
+    if (!a11y.on) { if (bar) bar.remove(); return; }
+    h.classList.add('a11y', 'a11y-z' + (a11y.size || 1));
+    if (a11y.color) h.classList.add('a11y-c-' + a11y.color);
+    if (a11y.noimg) h.classList.add('a11y-noimg');
+    if (a11y.ls) h.classList.add('a11y-ls');
+    var btn = function (k, v, label, title) { return '<button type="button" data-a11y-set="' + k + ':' + v + '"' + ((a11y[k] || '') === v || (k === 'size' && (a11y.size || 1) === +v) ? ' aria-pressed="true"' : ' aria-pressed="false"') + (title ? ' title="' + title + '"' : '') + '>' + label + '</button>'; };
+    var html = '<div class="container a11y-bar__in">' +
+      '<div class="a11y-bar__group"><span>Шрифт</span>' + btn('size', '1', 'А', 'Обычный') + btn('size', '2', 'А+', 'Крупный') + btn('size', '3', 'А++', 'Очень крупный') + '</div>' +
+      '<div class="a11y-bar__group"><span>Цвета</span>' + btn('color', 'bw', 'Ц', 'Чёрным по белому') + btn('color', 'wb', 'Ц', 'Белым по чёрному') + btn('color', 'blue', 'Ц', 'Тёмно-синим по голубому') + btn('color', '', 'Сайт', 'Обычные цвета сайта') + '</div>' +
+      '<div class="a11y-bar__group"><span>Интервал</span>' + btn('ls', '', 'Обычный') + btn('ls', '1', 'Большой') + '</div>' +
+      '<div class="a11y-bar__group"><span>Изображения</span>' + btn('noimg', '', 'Вкл') + btn('noimg', '1', 'Выкл') + '</div>' +
+      '<button type="button" class="a11y-bar__off" data-a11y-off>Обычная версия сайта</button></div>';
+    if (!bar) { bar = document.createElement('div'); bar.className = 'a11y-bar'; bar.setAttribute('role', 'region'); bar.setAttribute('aria-label', 'Настройки версии для слабовидящих'); document.body.insertBefore(bar, document.body.firstChild); }
+    bar.innerHTML = html;
+    bar.querySelectorAll('[data-a11y-set="color:bw"]').forEach(function (b) { b.classList.add('sw-bw'); });
+    bar.querySelectorAll('[data-a11y-set="color:wb"]').forEach(function (b) { b.classList.add('sw-wb'); });
+    bar.querySelectorAll('[data-a11y-set="color:blue"]').forEach(function (b) { b.classList.add('sw-blue'); });
+  }
+  function initA11y() {
+    applyA11y();
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest('[data-a11y],[data-a11y-set],[data-a11y-off]');
+      if (!t) return;
+      if (t.hasAttribute('data-a11y')) { a11y.on = !a11y.on; if (a11y.on && !a11y.size) { a11y.size = 2; a11y.color = 'bw'; } }
+      else if (t.hasAttribute('data-a11y-off')) a11y.on = false;
+      else { var kv = t.getAttribute('data-a11y-set').split(':'); a11y[kv[0]] = kv[0] === 'size' ? +kv[1] : kv[1]; }
+      saveA11y(); applyA11y();
+    });
   }
 
   function openModal(id) { document.getElementById(id).classList.add('is-open'); document.body.style.overflow = 'hidden'; }
@@ -267,6 +375,12 @@
       var a = e.target.closest('a'); if (!a) return; e.preventDefault();
       var id = a.getAttribute('href').slice(1); openCat(id, true); history.replaceState(null, '', '#' + id);
     });
+    // ceny.html?q=… (из поиска по сайту) — сразу показать найденные услуги
+    var q0 = new URLSearchParams(location.search).get('q');
+    if (q0) {
+      input.value = q0; input.dispatchEvent(new Event('input'));
+      setTimeout(function () { window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - 150); }, 120);   // к прайсу, под шапкой
+    }
     if (location.hash) setTimeout(function () { openCat(location.hash.slice(1), true); }, 50);
     window.addEventListener('hashchange', function () { openCat(location.hash.slice(1), true); });
   }
@@ -454,6 +568,17 @@
     });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModals(); });
     initMax();
+
+    /* поиск по сайту */
+    document.addEventListener('click', function (e) {
+      if (e.target.closest('[data-search]')) { e.preventDefault(); openSearch(); }
+      else if (e.target.closest('.search-hit')) closeModals();   // переход по ссылке, в том числе на якорь этой же страницы
+    });
+    document.getElementById('site-search').addEventListener('input', function (e) { runSearch(e.target.value); });
+    /* vrachi.html#doc-<id> (из поиска) — сразу открыть карточку врача */
+    function docFromHash() { var m = /^#doc-(.+)$/.exec(location.hash); if (m) openDoctor(decodeURIComponent(m[1])); }
+    docFromHash(); window.addEventListener('hashchange', docFromHash);
+    initA11y();
 
     /* Форма записи. Заявка уходит на C.formEndpoint (обработчик form/send.php на хостинге: письмо на почту клиники
        и уведомление администратору в MAX). Если адрес пустой — демо: только «Спасибо», без отправки. */
