@@ -306,7 +306,10 @@
   function norm(s) { return ' ' + String(s).toLowerCase().replace(/ё/g, 'е').replace(/[^a-zа-я0-9]+/g, ' ').trim() + ' '; }
   var SEARCH_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>';
   function renderPriceTable(el) {
-    var cats = (window.PRICES || []).concat([{ id: 'p-pakety', title: 'Программы и пакеты', groups: [{ items: window.PACKAGES.map(function (p) { return [p.name, p.price, p.note, '', p.code]; }) }] }]);
+    // «Иные услуги» (немедицинские, например справка) — в самом конце, после программ и пакетов
+    var other = (window.PRICES || []).filter(function (c) { return c.id === 'p-inye'; });
+    var cats = (window.PRICES || []).filter(function (c) { return c.id !== 'p-inye'; })
+      .concat([{ id: 'p-pakety', title: 'Программы и пакеты', groups: [{ items: window.PACKAGES.map(function (p) { return [p.name, p.price, p.note, '', p.code]; }) }] }]).concat(other);
     el.innerHTML = '<div class="pl">' +
       '<div class="pl__tools"><label class="pl__search">' + SEARCH_ICON + '<input type="search" placeholder="Найти услугу, например «УЗИ почек» или «гипс»" aria-label="Поиск по прайсу" autocomplete="off"></label>' +
       '<div class="pl__cats">' + cats.map(function (c) { return '<a class="pl__chip" href="#' + c.id + '">' + esc(c.title) + '</a>'; }).join('') + '</div></div>' +
