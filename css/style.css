@@ -693,3 +693,8 @@ html[class*="a11y-c-"] body div.modal:not(.a11y-bar *) { background: rgba(0,0,0,
 }
 /* градиенты и подложки баннеров нарисованы псевдоэлементами — в контрастных схемах их убираем */
 html[class*="a11y-c-"] body *:not(.a11y-bar *)::before, html[class*="a11y-c-"] body *:not(.a11y-bar *)::after { background: none !important; box-shadow: none !important; }
+/* документы клиники (polozhenie-pmu, pravila, metody, памятки) */
+.doc-table { width: 100%; border-collapse: collapse; margin: 12px 0 16px; font-size: 15px; }
+.doc-table th { text-align: left; background: var(--l100); color: var(--p900); padding: 10px 12px; }
+.doc-table td { padding: 10px 12px; border-bottom: 1px solid var(--l200); vertical-align: top; }
+.doc-page ul.doc-list--plain { list-style: none; padding-left: 0; }
