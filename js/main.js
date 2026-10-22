@@ -88,7 +88,7 @@
       '<div class="footer__warn">ИМЕЮТСЯ ПРОТИВОПОКАЗАНИЯ. НЕОБХОДИМА КОНСУЛЬТАЦИЯ СПЕЦИАЛИСТА</div>' +
       '<div class="footer__bottom"><span>© 2026 ' + esc(C.name) + '. Информация на сайте не является публичной офертой.</span><span><a href="politika.html" style="margin-right:16px">Политика конфиденциальности</a><a href="app-concept.html" style="margin-right:16px">Концепция мобильного приложения</a>' + esc(C.site) + '</span></div>' +
       // реквизиты и лицензия — отдельной строкой под копирайтом
-      '<div class="footer__legal">' + [C.legalName && (esc(C.legalName) + (C.inn ? ', ИНН ' + esc(C.inn) : '') + (C.ogrnip ? ', ОГРНИП ' + esc(C.ogrnip) : '')), C.license && ('Лицензия на медицинскую деятельность № ' + esc(C.license) + (C.licenseDate ? ' от ' + esc(C.licenseDate) : ''))].filter(Boolean).join('. ') + '.</div>' +
+      '<div class="footer__legal">' + [C.legalName && (esc(C.legalName) + (C.inn ? ', ИНН ' + esc(C.inn) : '') + (C.ogrnip ? ', ОГРНИП ' + esc(C.ogrnip) : '')), C.license && ('Лицензия на медицинскую деятельность № ' + esc(C.license) + (C.licenseDate ? ' от ' + esc(C.licenseDate) : '') + (C.licenseAuthority ? ', выдана ' + esc(C.licenseAuthority) : ''))].filter(Boolean).join('. ') + '.</div>' +
       '</div></footer>' +
       '<div class="float">' + (C.max ? '<a class="float__chat" href="' + esc(C.max) + '" target="_blank" rel="noopener" aria-label="Написать в MAX" title="Написать в MAX">' + I.max + '</a>' : '') + '<a class="float__phone" href="' + C.phoneHref + '" aria-label="Позвонить">' + I.phone + '</a></div>';
   }
