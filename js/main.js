@@ -115,10 +115,51 @@
     });
   }
 
-  /* Виджет онлайн-записи МедФлекс (C.medflex): тот же код, что клиника прислала «в footer», — блок с адресом и скрипт.
-     Скрипт сам рисует круглую кнопку «Запись» и открывает запись поверх сайта. Свои кнопки «Записаться» пока не трогаем. */
+  /* Онлайн-запись МедФлекс (C.medflex): наши кнопки «Записаться» открывают окно записи МедФлекс (запись сразу в
+     расписание МЕДМИС). Кнопка врача с номером в МедФлекс (d.medflex) — сразу его расписание (employeeId); врачей, которых
+     там нет, и кнопки «Оставить заявку» / «Задать вопрос» (data-form) — наша форма-заявка.
+     Обмен сообщениями с окном — как в их круглом виджете (round_widget_button.js): showFrame / closeFrame. */
+  var MEDFLEX_ORIGIN = 'https://booking.medflex.ru';
+  function openMedflex(employeeId) {
+    var url = new URL(C.medflex);
+    url.searchParams.set('isRoundWidget', 'true');
+    if (employeeId) url.searchParams.set('employeeId', String(employeeId));
+    var box = document.querySelector('#modal-medflex .medflex-box__frame');
+    box.innerHTML = '<div class="medflex-box__loading">Загружаем расписание врачей…</div>' +
+      '<iframe src="' + esc(url.href) + '" title="Онлайн-запись к врачу" allow="clipboard-write" hidden></iframe>';
+    openModal('modal-medflex');
+  }
+  window.openMedflex = openMedflex;
+  function medflexFrame() { return document.querySelector('#modal-medflex iframe'); }
+  window.addEventListener('message', function (e) {
+    var fr = medflexFrame();
+    if (e.origin !== MEDFLEX_ORIGIN || !fr || e.source !== fr.contentWindow) return;
+    if (e.data === 'closeFrame') closeModals();
+    if (e.data === 'showFrame') {
+      fr.hidden = false;
+      var ld = document.querySelector('#modal-medflex .medflex-box__loading'); if (ld) ld.remove();
+      var utm = {}; new URLSearchParams(location.search).forEach(function (v, k) { if (k.indexOf('utm_') === 0) utm[k] = v; });
+      var ym = (document.cookie.match(/(?:^|; )_ym_uid=([^;]*)/) || [])[1];
+      var send = function (type, body) { fr.contentWindow.postMessage(JSON.stringify(body ? { type: type, body: body } : { type: type }), MEDFLEX_ORIGIN); };
+      send('setUtmAndYmId', { utmQueries: utm, ymId: ym });
+      send('sendOpenMetric');
+      send('sendParentInfo', { href: location.href });
+      send('sendDeviceSizes', { width: window.innerWidth, height: window.innerHeight });
+    }
+  });
+  /* что делать по кнопке с data-book: окно МедФлекс или наша форма */
+  function bookClick(t) {
+    var id = t.getAttribute('data-book');
+    var d = id ? window.DOCTORS.filter(function (x) { return x.id === id; })[0] : null;
+    if (!C.medflex || t.hasAttribute('data-form') || (d && !d.medflex)) { closeModals(); openBooking(id); return; }
+    closeModals(); openMedflex(d ? d.medflex : null);
+  }
+
+  /* Круглая кнопка «Запись» МедФлекс (код, который клиника прислала «в footer») — только на страницах без карточек
+     врачей: там запись идёт через «Записаться» в карточке. */
   function initMedflex() {
     if (!C.medflex || document.getElementById('medflexRoundWidgetData')) return;
+    if (document.querySelector('.doctor__actions [data-book]')) return;
     var box = document.createElement('div');
     box.id = 'medflexRoundWidgetData';
     box.setAttribute('data-src', C.medflex);
@@ -150,6 +191,9 @@
       '<div class="form__err" hidden></div>' +
       '<button class="btn btn--primary btn--block" type="submit">Отправить заявку</button>' +
       '</form></div></div>' +
+      // окно онлайн-записи МедФлекс: закрывается крестиком внутри окна (сообщение closeFrame), по фону и Escape
+      '<div class="modal" id="modal-medflex"><div class="modal__box medflex-box"><div class="medflex-box__frame"></div>' +
+      '<div class="medflex-box__foot">Нужного врача нет в списке? <a href="#" data-book data-form>Оставьте заявку</a> — администратор перезвонит.</div></div></div>' +
       '<div class="modal" id="modal-doctor"><div class="modal__box modal__box--wide"><button class="modal__close" type="button" data-close aria-label="Закрыть">' + I.close + '</button><div id="doctor-body"></div></div></div>' +
       '<div class="modal modal--top" id="modal-search"><div class="modal__box modal__box--wide search-box"><button class="modal__close" type="button" data-close aria-label="Закрыть">' + I.close + '</button>' +
       '<h2 style="font-size:24px">Поиск по сайту</h2>' +
@@ -586,7 +630,7 @@
     document.addEventListener('click', function (e) {
       var t = e.target.closest('[data-book],[data-doctor],[data-close],[data-review],.modal');
       if (!t) return;
-      if (t.hasAttribute('data-book')) { e.preventDefault(); openBooking(t.getAttribute('data-book')); }
+      if (t.hasAttribute('data-book')) { e.preventDefault(); bookClick(t); }
       else if (t.hasAttribute('data-doctor')) { e.preventDefault(); openDoctor(t.getAttribute('data-doctor')); }
       else if (t.hasAttribute('data-review')) { e.preventDefault(); openBooking(null, 'otzyv'); document.querySelector('#modal-book h2').textContent = 'Оставить отзыв'; document.querySelector('#form-book textarea').placeholder = 'Ваш отзыв'; }
       else if (t.hasAttribute('data-close') || t.classList.contains('modal')) { if (t.classList.contains('modal') && e.target !== t) return; closeModals(); }
