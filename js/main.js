@@ -115,6 +115,20 @@
     });
   }
 
+  /* Виджет онлайн-записи МедФлекс (C.medflex): тот же код, что клиника прислала «в footer», — блок с адресом и скрипт.
+     Скрипт сам рисует круглую кнопку «Запись» и открывает запись поверх сайта. Свои кнопки «Записаться» пока не трогаем. */
+  function initMedflex() {
+    if (!C.medflex || document.getElementById('medflexRoundWidgetData')) return;
+    var box = document.createElement('div');
+    box.id = 'medflexRoundWidgetData';
+    box.setAttribute('data-src', C.medflex);
+    document.body.appendChild(box);
+    var s = document.createElement('script');
+    s.src = 'https://booking.medflex.ru/components/round/round_widget_button.js';
+    s.charset = 'utf-8';
+    document.body.appendChild(s);
+  }
+
   /* ---------- Модальные окна ---------- */
   var COMMENT_HINT = 'Возраст ребёнка, удобное время для звонка';
   function renderModals() {
@@ -579,6 +593,7 @@
     });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModals(); });
     initMax();
+    initMedflex();
 
     /* поиск по сайту */
     document.addEventListener('click', function (e) {
